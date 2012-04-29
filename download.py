@@ -1,6 +1,3 @@
-#Beautiful Soup needs this
-from __future__ import generators
-
 """Beautiful Soup
 Elixir and Tonic
 "The Screen-Scraper's Friend"
@@ -79,6 +76,8 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE, DAMMIT.
 
 """
+
+from __future__ import generators
 
 __author__ = "Leonard Richardson (leonardr@segfault.org)"
 __version__ = "3.2.1"
@@ -2019,7 +2018,7 @@ if False and __name__ == '__main__':
     print soup.prettify()
 
 
-import cookielib, urllib2, urllib, ConfigParser, pprint, re, os
+import cookielib, urllib2, urllib, ConfigParser, pprint, re, os, httplib
 
 
 class Config(object): 
@@ -2048,6 +2047,29 @@ class Config(object):
     def getJustClass(self, courseURL):
         splits = courseURL.split('/')
         return splits[3]
+
+class Downloader(object):
+    def __init__(self, config):
+        cj = cookielib.CookieJar()
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+        self.opener = opener
+        self.login(config)
+
+    def login(self, config):
+        formParams = {
+            'email_address': config.username,
+            'password': config.password,
+        }
+
+        formParams = urllib.urlencode(formParams)
+
+        self.opener.open(config.loginURL, formParams)
+
+    def getVideoListingPage(self, config):
+        self.opener.open(config.redirectURL)
+        r = self.opener.open(config.course)
+        return r.read()
+        
 
 def getVideoPage(config):
     cj = cookielib.CookieJar()
@@ -2098,15 +2120,46 @@ def sanitiseHeaders(headers):
     return sanitisedHeaders
         
 
-#config = Config()
+config = Config()
+downloader = Downloader(config)
+html = downloader.getVideoListingPage(config)
 #html = getVideoPage(config)
-(headerTexts, links) = getDownloadableContent(open('video-list.html'))
+#(headerTexts, links) = getDownloadableContent(open('video-list.html'))
+(headerTexts, links) = getDownloadableContent(html)
 sanitisedHeaders = sanitiseHeaders(headerTexts)
-#pprint.pprint(links)
-#pprint.pprint(headerTexts)
+pprint.pprint(links)
+pprint.pprint(headerTexts)
 
-for header in sanitisedHeaders:
-    if not os.path.exists(header):
-        os.makedirs(header)
-    
+if False:
+    for sanitisedHeader, header in zip(sanitisedHeaders, headerTexts):
+        if not os.path.exists(sanitisedHeader):
+            os.makedirs(sanitisedHeader)
 
+        weeklyDownloads = links[header]
+
+        for weeklyDownload in weeklyDownloads:
+            for classDownload in weeklyDownload:
+                print classDownload
+                remoteFile = urllib2.urlopen(classDownload)
+                name = ''
+                print remoteFile.headers.items()
+                if False:
+                    for header in remoteFile.headers:
+                        try:
+                            if remoteFile.headers['Content-Disposition']:
+                                name = remoteFile.headers['Content-Disposition']
+                        except Exception:
+                            pass
+
+                    if name:
+                        print name
+                    else:
+                        print 'Name not found'
+
+
+if False:
+    u = urllib2.urlopen('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=20')
+    print u.headers.items()
+    localFile = open('foo.mp4', 'w')
+    localFile.write(u.read())
+    localFile.close()
