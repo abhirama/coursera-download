@@ -1,55 +1,5 @@
 #Beautiful Soup needs this
 from __future__ import generators
-import cookielib, urllib2, urllib, ConfigParser, pprint
-
-class Config(object): 
-    SECTION_CREDENTIALS = 'credentials'
-    SECTION_CREDENTIALS_USERNAME = 'username'
-    SECTION_CREDENTIALS_PASSWORD = 'password'
-
-    SECTION_DOWNLOAD = 'download'
-    SECTION_DOWNLOAD_CLASS = 'class'
-
-    CONFIG_FILE = 'download.cfg'
-
-    LOGIN_URL = 'https://www.coursera.org/maestro/auth/api/user/login'
-    REDIRECT_URL = 'https://class.coursera.org/{0}/auth/auth_redirector?type=login&subtype=normal&email=&visiting=%2F{0}%2Flecture%2Findex&minimal=true'
-
-    def __init__(self):
-        config = ConfigParser.ConfigParser()
-        config.read(Config.CONFIG_FILE)
-        self.username = config.get(Config.SECTION_CREDENTIALS, Config.SECTION_CREDENTIALS_USERNAME)
-        self.password = config.get(Config.SECTION_CREDENTIALS, Config.SECTION_CREDENTIALS_PASSWORD)
-        self.course = config.get(Config.SECTION_DOWNLOAD, Config.SECTION_DOWNLOAD_CLASS)
-        self.clazz = self.getJustClass(self.course)
-        self.loginURL = Config.LOGIN_URL
-        self.redirectURL = Config.REDIRECT_URL.format(self.clazz)
-
-    def getJustClass(self, courseURL):
-        splits = courseURL.split('/')
-        return splits[3]
-
-def getVideoPage(config):
-    cj = cookielib.CookieJar()
-    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-
-    formParams = {
-        'email_address': config.username,
-        'password': config.password,
-    }
-
-    formParams = urllib.urlencode(formParams)
-
-    print config.loginURL
-    opener.open(config.loginURL, formParams)
-    print config.redirectURL
-    opener.open(config.redirectURL)
-    r = opener.open(config.course)
-
-    return r.read()
-
-config = Config()
-print getVideoPage(config)
 
 """Beautiful Soup
 Elixir and Tonic
@@ -2063,7 +2013,85 @@ class UnicodeDammit:
 
 
 #By default, act as an HTML pretty-printer.
-if __name__ == '__main__':
+if False and __name__ == '__main__':
     import sys
     soup = BeautifulSoup(sys.stdin)
     print soup.prettify()
+
+
+import cookielib, urllib2, urllib, ConfigParser, pprint
+
+class Config(object): 
+    SECTION_CREDENTIALS = 'credentials'
+    SECTION_CREDENTIALS_USERNAME = 'username'
+    SECTION_CREDENTIALS_PASSWORD = 'password'
+
+    SECTION_DOWNLOAD = 'download'
+    SECTION_DOWNLOAD_CLASS = 'class'
+
+    CONFIG_FILE = 'download.cfg'
+
+    LOGIN_URL = 'https://www.coursera.org/maestro/auth/api/user/login'
+    REDIRECT_URL = 'https://class.coursera.org/{0}/auth/auth_redirector?type=login&subtype=normal&email=&visiting=%2F{0}%2Flecture%2Findex&minimal=true'
+
+    def __init__(self):
+        config = ConfigParser.ConfigParser()
+        config.read(Config.CONFIG_FILE)
+        self.username = config.get(Config.SECTION_CREDENTIALS, Config.SECTION_CREDENTIALS_USERNAME)
+        self.password = config.get(Config.SECTION_CREDENTIALS, Config.SECTION_CREDENTIALS_PASSWORD)
+        self.course = config.get(Config.SECTION_DOWNLOAD, Config.SECTION_DOWNLOAD_CLASS)
+        self.clazz = self.getJustClass(self.course)
+        self.loginURL = Config.LOGIN_URL
+        self.redirectURL = Config.REDIRECT_URL.format(self.clazz)
+
+    def getJustClass(self, courseURL):
+        splits = courseURL.split('/')
+        return splits[3]
+
+def getVideoPage(config):
+    cj = cookielib.CookieJar()
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+
+    formParams = {
+        'email_address': config.username,
+        'password': config.password,
+    }
+
+    formParams = urllib.urlencode(formParams)
+
+    print config.loginURL
+    opener.open(config.loginURL, formParams)
+    print config.redirectURL
+    opener.open(config.redirectURL)
+    r = opener.open(config.course)
+
+    return r.read()
+
+def getDownloadableContent(html):
+    soup = BeautifulSoup(html)
+    headers = soup.findAll("h3", { "class" : "list_header" })
+
+    headerTexts = []
+    links = {}
+
+    for header in headers:
+        ul = header.findNext('ul')
+        headerTexts.append(header.text)
+        items = ul.findAll('div', {'class': 'item_resource'})
+        weekLinks = []
+        for item in items:
+            hrefs = item.findAll('a')
+            lessonLinks = []
+            for href in hrefs:
+                lessonLinks.append(href['href'])
+            weekLinks.append(lessonLinks)
+        links[header.text] = weekLinks
+
+    return (headerTexts, links)
+    
+
+#config = Config()
+#html = getVideoPage(config)
+(headerTexts, links) = getDownloadableContent(open('video-list.html'))
+pprint.pprint(links)
+pprint.pprint(headerTexts)
