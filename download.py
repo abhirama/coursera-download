@@ -2051,8 +2051,8 @@ class Config(object):
 def replaceWithUnderscores(fileName):
         return re.sub('\s+', '_', fileName)
 
-def removeColon(fileName):
-        return re.sub(':', '_', fileName)
+def sanitiseFileName(fileName):
+        return re.sub('[:\?\\\\]', '', fileName)
     
 class Downloader(object):
     def __init__(self, config):
@@ -2088,12 +2088,19 @@ class Downloader(object):
 
     @staticmethod
     def getFileName(header):
-        print header.items()
         try:
             return Downloader.extractFileName(header['Content-Disposition']).lstrip()
         except Exception:
-            print 'In exception'
             return '' 
+
+    @staticmethod
+    def isTextFile(fileName):
+        splits = fileName.split('.')
+        extension = splits[len(splits) - 1]
+        if extension.lower() == 'txt':
+            return True
+
+        return False
 
     @staticmethod
     def getContentLength(header):
@@ -2102,20 +2109,42 @@ class Downloader(object):
         except Exception:
             return 0 
 
-    def download(self, url):
+    @staticmethod
+    def getFileNameFromURL(url):
+        splits = url.split('/')    
+        splits.reverse()
+        splits = urllib.unquote(splits[0])
+        #Seeing slash in the unquoted fragment
+        splits = splits.split('/')
+        return splits[len(splits) - 1]
+
+    def download(self, url, folder):
+        print url
         r = self.opener.open(url)
         contentLength = Downloader.getContentLength(r.headers) 
         if not contentLength:
             contentLength = 16 * 1024
-        fileName = removeColon(Downloader.getFileName(r.headers))
+        fileName = sanitiseFileName(Downloader.getFileName(r.headers))
         if not fileName:
-            fileName = 'goo.mp4'
-        with open(fileName, 'wb') as fp:
-          while True:
-            chunk = r.read(contentLength)
-            if not chunk: 
-                break
-            fp.write(chunk)
+            fileName = Downloader.getFileNameFromURL(url)
+
+        os.chdir(folder)
+
+        try:
+            if not os.path.exists(fileName):
+                mode = 'wb'
+
+                if (Downloader.isTextFile(fileName)):
+                    mode = 'w'
+
+                with open(fileName, mode) as fp:
+                  while True:
+                    chunk = r.read(contentLength)
+                    if not chunk: 
+                        break
+                    fp.write(chunk)
+        finally:
+            os.chdir('..')
         
 def getVideoPage(config):
     cj = cookielib.CookieJar()
@@ -2165,8 +2194,7 @@ def sanitiseHeaders(headers):
 
     return sanitisedHeaders
 
-        
-if True:
+def main():
     config = Config()
     downloader = Downloader(config)
     html = downloader.getVideoListingPage(config)
@@ -2176,9 +2204,8 @@ if True:
     sanitisedHeaders = sanitiseHeaders(headerTexts)
     #pprint.pprint(links)
     #pprint.pprint(headerTexts)
-    downloader.download('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=51')
+    #downloader.download('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=51')
 
-if False:
     for sanitisedHeader, header in zip(sanitisedHeaders, headerTexts):
         if not os.path.exists(sanitisedHeader):
             os.makedirs(sanitisedHeader)
@@ -2187,27 +2214,6 @@ if False:
 
         for weeklyDownload in weeklyDownloads:
             for classDownload in weeklyDownload:
-                print classDownload
-                remoteFile = urllib2.urlopen(classDownload)
-                name = ''
-                print remoteFile.headers.items()
-                if False:
-                    for header in remoteFile.headers:
-                        try:
-                            if remoteFile.headers['Content-Disposition']:
-                                name = remoteFile.headers['Content-Disposition']
-                        except Exception:
-                            pass
+                downloader.download(classDownload, sanitisedHeader)
 
-                    if name:
-                        print name
-                    else:
-                        print 'Name not found'
-
-
-if False:
-    u = urllib2.urlopen('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=20')
-    print u.headers.items()
-    localFile = open('foo.mp4', 'w')
-    localFile.write(u.read())
-    localFile.close()
+main()
