@@ -17,21 +17,23 @@ class Config(object):
         self.password = config.get(Config.SECTION_CREDENTIALS, Config.SECTION_CREDENTIALS_PASSWORD)
         self.course = config.get(Config.SECTION_DOWNLOAD, Config.SECTION_DOWNLOAD_CLASS)
 
-cj = cookielib.CookieJar()
-opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+def getVideoPage(config):
+    cj = cookielib.CookieJar()
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+
+    formParams = {
+        'email_address': config.username,
+        'password': config.password,
+    }
+
+    formParams = urllib.urlencode(formParams)
+
+    opener.open('https://www.coursera.org/maestro/auth/api/user/login', formParams)
+    opener.open('https://class.coursera.org/algo/auth/auth_redirector?type=login&subtype=normal&email=&visiting=%2Falgo%2Flecture%2Findex&minimal=true')
+    r = opener.open(config.course)
+
+    return r.read()
+
 
 config = Config()
-formParams = {
-    'email_address': config.username,
-    'password': config.password,
-}
-
-formParams = urllib.urlencode(formParams)
-
-opener.open('https://www.coursera.org/maestro/auth/api/user/login', formParams)
-opener.open('https://class.coursera.org/algo/auth/auth_redirector?type=login&subtype=normal&email=&visiting=%2Falgo%2Flecture%2Findex&minimal=true')
-r = opener.open(config.course)
-
-print r.read()
-
-
+print getVideoPage(config)
