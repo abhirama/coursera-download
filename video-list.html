@@ -1,0 +1,2298 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+<meta charset="utf-8" />
+<title>Video Listing</title>
+
+<link rel="stylesheet" href="https://class.coursera.org/assets/core/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://class.coursera.org/assets/core/css/main.css" />
+<link rel="stylesheet" href="https://spark-public.s3.amazonaws.com/algo1/static/css/main.css" />
+<link rel="stylesheet" href="https://class.coursera.org/assets/core/css/font-awesome.css" />
+<script type="text/javascript" src="https://class.coursera.org/assets/core/js/jquery.js"></script>
+<script type="text/javascript" src="https://class.coursera.org/assets/core/js/json.js"></script>
+<script type="text/javascript" src="https://class.coursera.org/assets/core/js/hc_fix.js"></script>
+<script src="https://class.coursera.org/assets/core/js/bootstrap/bootstrap-modal.js" type="text/javascript"></script>
+<script src="https://class.coursera.org/assets/core/js/modal_focus.js" type="text/javascript"></script>
+<script src="https://class.coursera.org/assets/core/js/bind_modal_focus.js" type="text/javascript"></script>
+<script src="https://class.coursera.org/assets/core/js/get_query_parameters.js"></script>
+<script src="https://class.coursera.org/assets/app/generic/js/list_accordian.js"></script>
+<link rel="stylesheet" href="https://class.coursera.org/assets/app/generic/css/item_list.css" />
+<link rel="stylesheet" href="https://class.coursera.org/assets/core/css/jquery_ui/jquery_ui.css" />
+<script src="https://class.coursera.org/assets/core/js/jquery_ui.js"></script>
+<link rel="stylesheet" href="https://class.coursera.org/assets/core/css/font-awesome.css" />
+<script src="https://class.coursera.org/assets/core/js/bootstrap/bootstrap-twipsy.js"></script>
+<link rel="stylesheet" href="https://class.coursera.org/assets/app/lecture/css/lecture_dialog.css" />
+<link rel="stylesheet" href="https://class.coursera.org/assets/app/lecture/css/lecture_list.css?version=20120321" />
+<script src="https://class.coursera.org/assets/app/lecture/js/lecture_list_functions.js?view_url=https://class.coursera.org/algo/lecture/view&version=20120213"></script>
+<script src="https://class.coursera.org/assets/app/lecture/js/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" href="https://class.coursera.org/assets/app/lecture/css/jquery.fancybox-1.3.4.css" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-28377374-1']);
+  _gaq.push(['_setDomainName', 'coursera.org']);
+  _gaq.push(['_setAllowLinker', true]);  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script><link rel="icon" href="https://spark-public.s3.amazonaws.com/algo1/static/images/favicon.ico" />
+
+</head>
+
+<body>
+
+    <a href="#page-content" class="hidden">Skip Navigation</a>
+
+	
+<div class="topbar">
+    <div class="topbar-inner">
+        <div class="container-fluid"
+                          >
+            <a target="_new" href="http://www.coursera.org/" class="brand">
+				Coursera				<span style="background-color:#387690;padding-top:100px" class="label warning">Beta</span>
+			</a>
+            <ul class="nav secondary-nav">
+                                                    <li style="padding: 10px 10px 11px; color:#BFBFBF; font-size:14px; border-right: solid 1px #333">abhirama</li>
+                    <li><a href="https://class.coursera.org/algo/class/preferences">Preferences</a></li>
+                    <li><a href="http://www.coursera.org/">All Courses</a></li>
+
+                                        
+                    
+                    <li><a href="https://class.coursera.org/algo/class/aboutus">About</a></li>
+                    <li><a href="https://class.coursera.org/algo/auth/feedback">Contact Us</a></li>
+                    <li><a href="https://class.coursera.org/algo/auth/logout">Logout</a></li>
+                            </ul>
+        </div>
+    </div>
+</div>
+
+
+    <div id="banner-top">
+    	<div id="course-logo-text">
+        	<a href="https://class.coursera.org/algo/class/index">
+        		<img border="0" alt="Design and Analysis of Algorithms I" src="https://spark-public.s3.amazonaws.com/algo1/static/images/course-logo-text.png" />
+        	</a>
+        </div>
+    	<div id="banner-course-info">
+        	<div class="course-instructor-name">Tim Roughgarden</div>
+            <div class="course-time">Associate Professor of Computer Science</div>
+        </div>
+    </div>
+    
+        <div class="container-fluid">
+        <div class="sidebar page-sidebar" id="page-sidebar">
+            <ul style="list-style-type:none;margin-left:0px;">
+		<li>
+        <a href="https://class.coursera.org/algo/class/index"  >
+            <p class="navbar_item navbar_home">Home            </p>
+        </a>
+    </li>
+		<li>
+        <a href="https://class.coursera.org/algo/wiki/view?page=Syllabus"  >
+            <p class="navbar_item navbar_wiki">Syllabus            </p>
+        </a>
+    </li>
+		<li>
+        <a href="https://class.coursera.org/algo/lecture/index"  >
+            <p class="navbar_item navbar_lecture">Video Lectures            </p>
+        </a>
+    </li>
+		<li>
+        <a href="https://class.coursera.org/algo/quiz/index"  >
+            <p class="navbar_item navbar_quiz">Problem Sets            </p>
+        </a>
+    </li>
+		<li>
+        <a href="https://class.coursera.org/algo/quiz/index?quiz_type=homework"  >
+            <p class="navbar_item navbar_quiz">Programming Questions            </p>
+        </a>
+    </li>
+		<li>
+        <a href="https://class.coursera.org/algo/wiki/view?page=TheoryProblems"  >
+            <p class="navbar_item navbar_quiz">Theory Problems            </p>
+        </a>
+    </li>
+		<li>
+        <a href="https://class.coursera.org/algo/forum/index"  >
+            <p class="navbar_item navbar_forum">Discussion Forums            </p>
+        </a>
+    </li>
+		<li>
+        <a href="https://class.coursera.org/algo/wiki/view?page=CourseLogistics"  >
+            <p class="navbar_item navbar_wiki">Course Logistics            </p>
+        </a>
+    </li>
+		<li>
+        <a href="http://www.universalsubtitles.org/en/teams/coursera/p/algo"  >
+            <p class="navbar_item navbar_wiki">Help with Subtitles            </p>
+        </a>
+    </li>
+	</ul>
+        </div>
+        <div class="content page-content" id="page-content">
+            <div style="float: left;">
+    <h2 style="padding-bottom:12px">Video Lectures</h2>
+</div>
+
+
+<div class="item_list">
+<a href="#" class="list_header_link expanded"><h3 class="list_header">I. INTRODUCTION (Week 1)</h3> <span class="list_header_state hidden">(expanded, click to collapse)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=20 " rel="lecture-link" class="lecture-link">
+Introduction : Why Study Algorithms ? (19 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-intro-annotated-final.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Introduction" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Introduction for Introduction : Why Study Algorithms ? (19 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-intro-annotated-final.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Introduction" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Introduction for Introduction : Why Study Algorithms ? (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=20_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Introduction : Why Study Algorithms ? (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=20_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Introduction : Why Study Algorithms ? (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=20"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Introduction : Why Study Algorithms ? (19 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=21 " rel="lecture-link" class="lecture-link">
+About the Course (17 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-about-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="About" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">About for About the Course (17 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-about-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="About" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">About for About the Course (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=21_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for About the Course (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=21_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for About the Course (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=21"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for About the Course (17 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=1 " rel="lecture-link" class="lecture-link">
+Merge Sort: Motivation and Example (9 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-merge1-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Merge Sort 1" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Merge Sort 1 for Merge Sort: Motivation and Example (9 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-merge1.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Merge Sort 1" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Merge Sort 1 for Merge Sort: Motivation and Example (9 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=1_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Merge Sort: Motivation and Example (9 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=1_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Merge Sort: Motivation and Example (9 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=1"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Merge Sort: Motivation and Example (9 min)</div>
+        </a>
+</div>
+</li><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=2 " rel="lecture-link" class="lecture-link">
+Merge Sort: Pseudocode (13 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-merge2-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="MergeSort-2" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">MergeSort-2 for Merge Sort: Pseudocode (13 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-merge2.pdf"
+           data-placement="above" rel="twipsy" 
+           title="MergeSort-2" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">MergeSort-2 for Merge Sort: Pseudocode (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=2_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Merge Sort: Pseudocode (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=2_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Merge Sort: Pseudocode (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=2"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Merge Sort: Pseudocode (13 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=3 " rel="lecture-link" class="lecture-link">
+Merge Sort: Analysis (9 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-merge3-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="MergeSort-3" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">MergeSort-3 for Merge Sort: Analysis (9 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-merge3.pdf"
+           data-placement="above" rel="twipsy" 
+           title="MergeSort-3" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">MergeSort-3 for Merge Sort: Analysis (9 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=3_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Merge Sort: Analysis (9 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=3_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Merge Sort: Analysis (9 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=3"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Merge Sort: Analysis (9 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=4 " rel="lecture-link" class="lecture-link">
+Guiding Principles for Analysis of Algorithms (15 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-guiding-annotated-final.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Guiding Principles" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Guiding Principles for Guiding Principles for Analysis of Algorithms (15 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-guiding.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Guiding Principles" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Guiding Principles for Guiding Principles for Analysis of Algorithms (15 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=4_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Guiding Principles for Analysis of Algorithms (15 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=4_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Guiding Principles for Analysis of Algorithms (15 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=4"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Guiding Principles for Analysis of Algorithms (15 min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">II. ASYMPTOTIC ANALYSIS (Week 1)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=11 " rel="lecture-link" class="lecture-link">
+Big-Oh Notation (4 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-asymptotic1.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Big Oh" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Big Oh for Big-Oh Notation (4 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-asymptotic1.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Big Oh" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Big Oh for Big-Oh Notation (4 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=11_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Big-Oh Notation (4 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=11_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Big-Oh Notation (4 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=11"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Big-Oh Notation (4 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=12 " rel="lecture-link" class="lecture-link">
+Basic Examples (7 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-asymptotic2.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Basic Examples" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Basic Examples for Basic Examples (7 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-asymptotic2.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Basic Examples" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Basic Examples for Basic Examples (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=12_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Basic Examples (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=12_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Basic Examples (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=12"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Basic Examples (7 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=13 " rel="lecture-link" class="lecture-link">
+Big Omega and Theta (7 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-asymptotic3-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Big Omega" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Big Omega for Big Omega and Theta (7 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-asymptotic3.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Big Omega" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Big Omega for Big Omega and Theta (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=13_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Big Omega and Theta (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=13_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Big Omega and Theta (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=13"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Big Omega and Theta (7 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=14 " rel="lecture-link" class="lecture-link">
+Additional Examples [Review - Optional] (8 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-asymptotic4.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Additional Examples" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Additional Examples for Additional Examples [Review - Optional] (8 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-asymptotic4.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Additional Examples" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Additional Examples for Additional Examples [Review - Optional] (8 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=14_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Additional Examples [Review - Optional] (8 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=14_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Additional Examples [Review - Optional] (8 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=14"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Additional Examples [Review - Optional] (8 min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">III. DIVIDE & CONQUER ALGORITHMS (Week 1)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=15 " rel="lecture-link" class="lecture-link">
+O(n log n) Algorithm for Counting Inversions I (13 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-inversions1.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Counting Inversions" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Counting Inversions for O(n log n) Algorithm for Counting Inversions I (13 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-inversions1.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Counting Inversions" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Counting Inversions for O(n log n) Algorithm for Counting Inversions I (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=15_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for O(n log n) Algorithm for Counting Inversions I (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=15_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for O(n log n) Algorithm for Counting Inversions I (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=15"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for O(n log n) Algorithm for Counting Inversions I (13 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=16 " rel="lecture-link" class="lecture-link">
+O(n log n) Algorithm for Counting Inversions II (17 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-inversions2.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Counting Inversions 2" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Counting Inversions 2 for O(n log n) Algorithm for Counting Inversions II (17 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-inversions2.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Counting Inversions 2" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Counting Inversions 2 for O(n log n) Algorithm for Counting Inversions II (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=16_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for O(n log n) Algorithm for Counting Inversions II (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=16_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for O(n log n) Algorithm for Counting Inversions II (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=16"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for O(n log n) Algorithm for Counting Inversions II (17 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=19 " rel="lecture-link" class="lecture-link">
+Strassen's Subcubic Matrix Multiplication Algorithm (22 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-strassen.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Strassen" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Strassen for Strassen's Subcubic Matrix Multiplication Algorithm (22 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-strassen.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Strassen" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Strassen for Strassen's Subcubic Matrix Multiplication Algorithm (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=19_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Strassen's Subcubic Matrix Multiplication Algorithm (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=19_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Strassen's Subcubic Matrix Multiplication Algorithm (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=19"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Strassen's Subcubic Matrix Multiplication Algorithm (22 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=17 " rel="lecture-link" class="lecture-link">
+O(n log n) Algorithm for Closest Pair I [Advanced - Optional] (32 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-closest1-annotated-final.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Closest Pair 1" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Closest Pair 1 for O(n log n) Algorithm for Closest Pair I [Advanced - Optional] (32 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-closest1.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Closest Pair 1" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Closest Pair 1 for O(n log n) Algorithm for Closest Pair I [Advanced - Optional] (32 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=17_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for O(n log n) Algorithm for Closest Pair I [Advanced - Optional] (32 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=17_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for O(n log n) Algorithm for Closest Pair I [Advanced - Optional] (32 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=17"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for O(n log n) Algorithm for Closest Pair I [Advanced - Optional] (32 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=18 " rel="lecture-link" class="lecture-link">
+O(n log n) Algorithm for Closest Pair II [Advanced - Optional] (19 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-closest2-annotated-final.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Closest Pair 2" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Closest Pair 2 for O(n log n) Algorithm for Closest Pair II [Advanced - Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-closest2.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Closest Pair 2" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Closest Pair 2 for O(n log n) Algorithm for Closest Pair II [Advanced - Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=18_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for O(n log n) Algorithm for Closest Pair II [Advanced - Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=18_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for O(n log n) Algorithm for Closest Pair II [Advanced - Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=18"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for O(n log n) Algorithm for Closest Pair II [Advanced - Optional] (19 min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">IV. THE MASTER METHOD (Week 2)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=5 " rel="lecture-link" class="lecture-link">
+Motivation (8 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master1.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 1" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Master Method 1 for Motivation (8 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master1.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 1" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Master Method 1 for Motivation (8 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=5_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Motivation (8 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=5_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Motivation (8 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=5"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Motivation (8 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=6 " rel="lecture-link" class="lecture-link">
+Formal Statement (10 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master2-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 2" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Master Method 2 for Formal Statement (10 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master2.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 2" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Master Method 2 for Formal Statement (10 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=6_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Formal Statement (10 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=6_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Formal Statement (10 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=6"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Formal Statement (10 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=7 " rel="lecture-link" class="lecture-link">
+Examples (13 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master3.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 3" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Master Method 3 for Examples (13 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master3.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 3" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Master Method 3 for Examples (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=7_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Examples (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=7_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Examples (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=7"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Examples (13 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=8 " rel="lecture-link" class="lecture-link">
+Proof I (10 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master4.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 4" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Master Method 4 for Proof I (10 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master4.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 4" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Master Method 4 for Proof I (10 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=8_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Proof I (10 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=8_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Proof I (10 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=8"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Proof I (10 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=9 " rel="lecture-link" class="lecture-link">
+Interpretation of the 3 Cases (11 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master5-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 5" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Master Method 5 for Interpretation of the 3 Cases (11 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master5.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 5" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Master Method 5 for Interpretation of the 3 Cases (11 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=9_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Interpretation of the 3 Cases (11 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=9_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Interpretation of the 3 Cases (11 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=9"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Interpretation of the 3 Cases (11 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=10 " rel="lecture-link" class="lecture-link">
+Proof II (16 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master6.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 6" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Master Method 6 for Proof II (16 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-master6.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Master Method 6" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Master Method 6 for Proof II (16 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=10_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Proof II (16 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=10_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Proof II (16 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=10"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Proof II (16 min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">V. QUICKSORT - ALGORITHM (Week 2)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=23 " rel="lecture-link" class="lecture-link">
+Quicksort: Overview (12 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-intro-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Introduction" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Introduction for Quicksort: Overview (12 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-intro-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Introduction" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Introduction for Quicksort: Overview (12 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=23_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Quicksort: Overview (12 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=23_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Quicksort: Overview (12 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=23"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Quicksort: Overview (12 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=22 " rel="lecture-link" class="lecture-link">
+Partitioning Around a Pivot (25 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-partition-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Partition" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Partition for Partitioning Around a Pivot (25 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-partition-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Partition" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Partition for Partitioning Around a Pivot (25 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=22_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Partitioning Around a Pivot (25 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=22_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Partitioning Around a Pivot (25 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=22"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Partitioning Around a Pivot (25 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=24 " rel="lecture-link" class="lecture-link">
+Correctness of Quicksort [Review - Optional] (11 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-correctness-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Correctness" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Correctness for Correctness of Quicksort [Review - Optional] (11 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-correctness-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Correctness" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Correctness for Correctness of Quicksort [Review - Optional] (11 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=24_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Correctness of Quicksort [Review - Optional] (11 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=24_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Correctness of Quicksort [Review - Optional] (11 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=24"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Correctness of Quicksort [Review - Optional] (11 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=25 " rel="lecture-link" class="lecture-link">
+Choosing a Good Pivot (22min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-pivot-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Pivot" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Pivot for Choosing a Good Pivot (22min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-pivot-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Pivot" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Pivot for Choosing a Good Pivot (22min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=25_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Choosing a Good Pivot (22min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=25_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Choosing a Good Pivot (22min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=25"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Choosing a Good Pivot (22min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">VI. QUICKSORT - ANALYSIS (Week 2)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=26 " rel="lecture-link" class="lecture-link">
+Analysis I: A Decomposition Principle  [Advanced - Optional] (22 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-analysis1-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Analysis 1" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Analysis 1 for Analysis I: A Decomposition Principle  [Advanced - Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-analysis1-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Analysis 1" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Analysis 1 for Analysis I: A Decomposition Principle  [Advanced - Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=26_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Analysis I: A Decomposition Principle  [Advanced - Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=26_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Analysis I: A Decomposition Principle  [Advanced - Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=26"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Analysis I: A Decomposition Principle  [Advanced - Optional] (22 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=27 " rel="lecture-link" class="lecture-link">
+Analysis II: The Key Insight [Advanced - Optional] (12min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-analysis2-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Analysis 2" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Analysis 2 for Analysis II: The Key Insight [Advanced - Optional] (12min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-analysis2-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Analysis 2" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Analysis 2 for Analysis II: The Key Insight [Advanced - Optional] (12min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=27_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Analysis II: The Key Insight [Advanced - Optional] (12min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=27_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Analysis II: The Key Insight [Advanced - Optional] (12min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=27"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Analysis II: The Key Insight [Advanced - Optional] (12min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=28 " rel="lecture-link" class="lecture-link">
+Analysis III: Final Calculations [Advanced - Optional] (9min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-analysis3-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Analysis 3" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Analysis 3 for Analysis III: Final Calculations [Advanced - Optional] (9min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-qsort-analysis3-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Analysis 3" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Analysis 3 for Analysis III: Final Calculations [Advanced - Optional] (9min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/notes%2Fqsort.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Extra Notes" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Extra Notes for Analysis III: Final Calculations [Advanced - Optional] (9min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=28_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Analysis III: Final Calculations [Advanced - Optional] (9min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=28_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Analysis III: Final Calculations [Advanced - Optional] (9min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=28"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Analysis III: Final Calculations [Advanced - Optional] (9min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">VII. PROBABILITY REVIEW (Weeks 2-3)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=29 " rel="lecture-link" class="lecture-link">
+Part I [Review - Optional] (25 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-prob_review1-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Probability Review" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Probability Review for Part I [Review - Optional] (25 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-prob_review1-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Probability Review" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Probability Review for Part I [Review - Optional] (25 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=29_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Part I [Review - Optional] (25 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=29_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Part I [Review - Optional] (25 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=29"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Part I [Review - Optional] (25 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=30 " rel="lecture-link" class="lecture-link">
+Part II [Review - Optional] (17 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-prob_review2-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Probability 2" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Probability 2 for Part II [Review - Optional] (17 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-prob_review2-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Probability 2" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Probability 2 for Part II [Review - Optional] (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=30_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Part II [Review - Optional] (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=30_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Part II [Review - Optional] (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=30"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Part II [Review - Optional] (17 min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">VIII. LINEAR-TIME SELECTION (Week 3)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=36 " rel="lecture-link" class="lecture-link">
+Randomized Selection - Algorithm (22 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-ralgorithm-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Rselect" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Rselect for Randomized Selection - Algorithm (22 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-ralgorithm-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Rselect" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Rselect for Randomized Selection - Algorithm (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=36_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Randomized Selection - Algorithm (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=36_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Randomized Selection - Algorithm (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=36"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Randomized Selection - Algorithm (22 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=37 " rel="lecture-link" class="lecture-link">
+Randomized Selection -  Analysis (21 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-ranalysis-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="RSelect Analysis" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">RSelect Analysis for Randomized Selection -  Analysis (21 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-ranalysis-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="RSelect Analysis" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">RSelect Analysis for Randomized Selection -  Analysis (21 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=37_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Randomized Selection -  Analysis (21 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=37_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Randomized Selection -  Analysis (21 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=37"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Randomized Selection -  Analysis (21 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=38 " rel="lecture-link" class="lecture-link">
+Deterministic Selection - Algorithm [Advanced - Optional] (17 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-dalgorithmanalysis-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="DSelect" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">DSelect for Deterministic Selection - Algorithm [Advanced - Optional] (17 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-dalgorithmanalysis-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="DSelect" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">DSelect for Deterministic Selection - Algorithm [Advanced - Optional] (17 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/notes%2Fmedian.pdf"
+           data-placement="above" rel="twipsy" 
+           title="DSelect Extra Notes" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">DSelect Extra Notes for Deterministic Selection - Algorithm [Advanced - Optional] (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=38_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Deterministic Selection - Algorithm [Advanced - Optional] (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=38_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Deterministic Selection - Algorithm [Advanced - Optional] (17 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=38"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Deterministic Selection - Algorithm [Advanced - Optional] (17 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=39 " rel="lecture-link" class="lecture-link">
+Deterministic Selection - Analysis I [Advanced - Optional] (22 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-dalgorithmanalysis-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Danalysis" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Danalysis for Deterministic Selection - Analysis I [Advanced - Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-dalgorithmanalysis-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Danalysis" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Danalysis for Deterministic Selection - Analysis I [Advanced - Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=39_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Deterministic Selection - Analysis I [Advanced - Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=39_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Deterministic Selection - Analysis I [Advanced - Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=39"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Deterministic Selection - Analysis I [Advanced - Optional] (22 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=41 " rel="lecture-link" class="lecture-link">
+Deterministic Selection - Analysis II [Advanced - Optional] (13 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-dalgorithmanalysis-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Deterministic Selection " >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Deterministic Selection  for Deterministic Selection - Analysis II [Advanced - Optional] (13 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-dalgorithmanalysis-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Deterministic Selection - Analysis II" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Deterministic Selection - Analysis II for Deterministic Selection - Analysis II [Advanced - Optional] (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=41_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Deterministic Selection - Analysis II [Advanced - Optional] (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=41_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Deterministic Selection - Analysis II [Advanced - Optional] (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=41"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Deterministic Selection - Analysis II [Advanced - Optional] (13 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=40 " rel="lecture-link" class="lecture-link">
+Omega(n log n) Lower Bound for Comparison-Based Sorting [Advanced - Optional] (13 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-sortinglb-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Sorting Lower Bound" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Sorting Lower Bound for Omega(n log n) Lower Bound for Comparison-Based Sorting [Advanced - Optional] (13 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-select-sortinglb-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Sorting Lower Bound" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Sorting Lower Bound for Omega(n log n) Lower Bound for Comparison-Based Sorting [Advanced - Optional] (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=40_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Omega(n log n) Lower Bound for Comparison-Based Sorting [Advanced - Optional] (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=40_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Omega(n log n) Lower Bound for Comparison-Based Sorting [Advanced - Optional] (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=40"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Omega(n log n) Lower Bound for Comparison-Based Sorting [Advanced - Optional] (13 min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">IX. GRAPHS AND THE CONTRACTION ALGORITHM (Week 3)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=31 " rel="lecture-link" class="lecture-link">
+Graphs and Minimum Cuts (16 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-overview-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Graphs and Minimum Cuts " >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Graphs and Minimum Cuts  for Graphs and Minimum Cuts (16 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-overview-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Graphs and Minimum Cuts " >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Graphs and Minimum Cuts  for Graphs and Minimum Cuts (16 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=31_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Graphs and Minimum Cuts (16 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=31_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Graphs and Minimum Cuts (16 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=31"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Graphs and Minimum Cuts (16 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=32 " rel="lecture-link" class="lecture-link">
+Graph Representations (14 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-representations-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Graph Representations " >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Graph Representations  for Graph Representations (14 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-representations-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Graph Representations " >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Graph Representations  for Graph Representations (14 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=32_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Graph Representations (14 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=32_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Graph Representations (14 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=32"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Graph Representations (14 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=33 " rel="lecture-link" class="lecture-link">
+Random Contraction Algorithm (9 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-algorithm-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Random Contraction Algorithm" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Random Contraction Algorithm for Random Contraction Algorithm (9 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-algorithm-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Random Contraction Algorithm" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Random Contraction Algorithm for Random Contraction Algorithm (9 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=33_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Random Contraction Algorithm (9 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=33_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Random Contraction Algorithm (9 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=33"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Random Contraction Algorithm (9 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=35 " rel="lecture-link" class="lecture-link">
+Analysis of Contraction Algorithm (30 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-analysis-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Analysis of Contraction Algorithm" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Analysis of Contraction Algorithm for Analysis of Contraction Algorithm (30 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-analysis-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Analysis of Contraction Algorithm" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Analysis of Contraction Algorithm for Analysis of Contraction Algorithm (30 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=35_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Analysis of Contraction Algorithm (30 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=35_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Analysis of Contraction Algorithm (30 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=35"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Analysis of Contraction Algorithm (30 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=34 " rel="lecture-link" class="lecture-link">
+Counting Minimum Cuts [Advanced - Optional] (7 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-counting-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Counting Minimum Cuts" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Counting Minimum Cuts for Counting Minimum Cuts [Advanced - Optional] (7 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-karger-counting-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Counting Minimum Cuts" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Counting Minimum Cuts for Counting Minimum Cuts [Advanced - Optional] (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=34_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Counting Minimum Cuts [Advanced - Optional] (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=34_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Counting Minimum Cuts [Advanced - Optional] (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=34"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Counting Minimum Cuts [Advanced - Optional] (7 min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link expanded"><h3 class="list_header">X. GRAPH SEARCH AND CONNECTIVITY (Week 4)</h3> <span class="list_header_state hidden">(expanded, click to collapse)</span></a><ul class="item_section_list"><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=55 " rel="lecture-link" class="lecture-link">
+Graph Search - Overview (23 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-search.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Graph Search" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Graph Search for Graph Search - Overview (23 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-search.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Graph Search" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Graph Search for Graph Search - Overview (23 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=55_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Graph Search - Overview (23 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=55_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Graph Search - Overview (23 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=55"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Graph Search - Overview (23 min)</div>
+        </a>
+</div>
+</li><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=48 " rel="lecture-link" class="lecture-link">
+Breadth-First Search (BFS): The Basics (14 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-bfs.pptx"
+           data-placement="above" rel="twipsy" 
+           title="BFS" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">BFS for Breadth-First Search (BFS): The Basics (14 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-bfs.pdf"
+           data-placement="above" rel="twipsy" 
+           title="BFS" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">BFS for Breadth-First Search (BFS): The Basics (14 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=48_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Breadth-First Search (BFS): The Basics (14 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=48_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Breadth-First Search (BFS): The Basics (14 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=48"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Breadth-First Search (BFS): The Basics (14 min)</div>
+        </a>
+</div>
+</li><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=49 " rel="lecture-link" class="lecture-link">
+BFS and Shortest Paths (8 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-bfs.pptx"
+           data-placement="above" rel="twipsy" 
+           title="BFS" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">BFS for BFS and Shortest Paths (8 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-bfs.pdf"
+           data-placement="above" rel="twipsy" 
+           title="BFS" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">BFS for BFS and Shortest Paths (8 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=49_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for BFS and Shortest Paths (8 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=49_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for BFS and Shortest Paths (8 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=49"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for BFS and Shortest Paths (8 min)</div>
+        </a>
+</div>
+</li><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=50 " rel="lecture-link" class="lecture-link">
+BFS and Undirected Connectivity (13 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-bfs.pptx"
+           data-placement="above" rel="twipsy" 
+           title="BFS" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">BFS for BFS and Undirected Connectivity (13 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-bfs.pdf"
+           data-placement="above" rel="twipsy" 
+           title="BFS" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">BFS for BFS and Undirected Connectivity (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=50_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for BFS and Undirected Connectivity (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=50_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for BFS and Undirected Connectivity (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=50"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for BFS and Undirected Connectivity (13 min)</div>
+        </a>
+</div>
+</li><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=51 " rel="lecture-link" class="lecture-link">
+Depth-First Search (DFS): The Basics (7 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-dfs-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Depth-First Search" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Depth-First Search for Depth-First Search (DFS): The Basics (7 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-dfs-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Depth-First Search" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Depth-First Search for Depth-First Search (DFS): The Basics (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=51_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Depth-First Search (DFS): The Basics (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=51_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Depth-First Search (DFS): The Basics (7 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=51"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Depth-First Search (DFS): The Basics (7 min)</div>
+        </a>
+</div>
+</li><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=52 " rel="lecture-link" class="lecture-link">
+Topological Sort (22 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-dfs-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Topological Sort" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Topological Sort for Topological Sort (22 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-dfs-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Topological Sort" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Topological Sort for Topological Sort (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=52_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Topological Sort (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=52_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Topological Sort (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=52"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Topological Sort (22 min)</div>
+        </a>
+</div>
+</li><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=53 " rel="lecture-link" class="lecture-link">
+Computing Strong Components: The Algorithm (29 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-scc.pptx"
+           data-placement="above" rel="twipsy" 
+           title="SCC - Algorithm" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">SCC - Algorithm for Computing Strong Components: The Algorithm (29 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-scc.pdf"
+           data-placement="above" rel="twipsy" 
+           title="SCC - Algorithm" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">SCC - Algorithm for Computing Strong Components: The Algorithm (29 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/notes%2Fscc.pdf"
+           data-placement="above" rel="twipsy" 
+           title="SCC Extra Notes" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">SCC Extra Notes for Computing Strong Components: The Algorithm (29 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=53_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Computing Strong Components: The Algorithm (29 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=53_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Computing Strong Components: The Algorithm (29 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=53"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Computing Strong Components: The Algorithm (29 min)</div>
+        </a>
+</div>
+</li><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=54 " rel="lecture-link" class="lecture-link">
+Computing Strong Components: The Analysis (26 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-sccanalysis.pptx"
+           data-placement="above" rel="twipsy" 
+           title="SCC - Analysis" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">SCC - Analysis for Computing Strong Components: The Analysis (26 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-sccanalysis.pdf"
+           data-placement="above" rel="twipsy" 
+           title="SCC - Analysis" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">SCC - Analysis for Computing Strong Components: The Analysis (26 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=54_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Computing Strong Components: The Analysis (26 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=54_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Computing Strong Components: The Analysis (26 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=54"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Computing Strong Components: The Analysis (26 min)</div>
+        </a>
+</div>
+</li><li class="item_row unviewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=56 " rel="lecture-link" class="lecture-link">
+Structure of the Web [Optional] (19 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-web-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Web Structure" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Web Structure for Structure of the Web [Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-graphs-web-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Web Structure" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Web Structure for Structure of the Web [Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=56"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Structure of the Web [Optional] (19 min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">XI. DIJKSTRA'S SHORTEST-PATH ALGORITHM (Week 5)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=57 " rel="lecture-link" class="lecture-link">
+Dijkstra's Shortest-Path Algorithm (21 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-dijkstra-basics-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Djikstra's Shortest-Path Algorithm" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Djikstra's Shortest-Path Algorithm for Dijkstra's Shortest-Path Algorithm (21 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-dijkstra-basics-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Djikstra's Shortest-Path Algorithm" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Djikstra's Shortest-Path Algorithm for Dijkstra's Shortest-Path Algorithm (21 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=57_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Dijkstra's Shortest-Path Algorithm (21 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=57_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Dijkstra's Shortest-Path Algorithm (21 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=57"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Dijkstra's Shortest-Path Algorithm (21 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=59 " rel="lecture-link" class="lecture-link">
+Dijkstra's Algorithm: Examples (13 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-dijkstra-basics-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Djikstra's Algorithm: Examples" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Djikstra's Algorithm: Examples for Dijkstra's Algorithm: Examples (13 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-dijkstra-basics-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Djikstra's Algorithm: Examples" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Djikstra's Algorithm: Examples for Dijkstra's Algorithm: Examples (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=59_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Dijkstra's Algorithm: Examples (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=59_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Dijkstra's Algorithm: Examples (13 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=59"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Dijkstra's Algorithm: Examples (13 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=58 " rel="lecture-link" class="lecture-link">
+Correctness of Dijkstra's Algorithm [Advanced - Optional] (19 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-dijkstra-correctness-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Correctness of Dijkstra's Algorithm" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Correctness of Dijkstra's Algorithm for Correctness of Dijkstra's Algorithm [Advanced - Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-dijkstra-correctness-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Correctness of Dijkstra's Algorithm" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Correctness of Dijkstra's Algorithm for Correctness of Dijkstra's Algorithm [Advanced - Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=58_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Correctness of Dijkstra's Algorithm [Advanced - Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=58_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Correctness of Dijkstra's Algorithm [Advanced - Optional] (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=58"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Correctness of Dijkstra's Algorithm [Advanced - Optional] (19 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=60 " rel="lecture-link" class="lecture-link">
+Dijkstra's Algorithm: Implementation and Running Time (26 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-dijkstra-runtime-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Dijkstra's Algorithm: Implementation and Running Time" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Dijkstra's Algorithm: Implementation and Running Time for Dijkstra's Algorithm: Implementation and Running Time (26 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-dijkstra-runtime-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Dijkstra's Algorithm: Implementation and Running Time" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Dijkstra's Algorithm: Implementation and Running Time for Dijkstra's Algorithm: Implementation and Running Time (26 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=60_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Dijkstra's Algorithm: Implementation and Running Time (26 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=60_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Dijkstra's Algorithm: Implementation and Running Time (26 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=60"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Dijkstra's Algorithm: Implementation and Running Time (26 min)</div>
+        </a>
+</div>
+</li></ul><a href="#" class="list_header_link contracted"><h3 class="list_header">XII. DATA STRUCTURES (Week 5)</h3> <span class="list_header_state hidden">(collapsed, click to expand)</span></a><ul class="item_section_list"><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=61 " rel="lecture-link" class="lecture-link">
+Data Structures: Overview (5 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-overview-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Data Structures: Overview" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Data Structures: Overview for Data Structures: Overview (5 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-overview-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Data Structures: Overview" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Data Structures: Overview for Data Structures: Overview (5 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=61_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Data Structures: Overview (5 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=61_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Data Structures: Overview (5 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=61"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Data Structures: Overview (5 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=62 " rel="lecture-link" class="lecture-link">
+Heaps: Operations and Applications (18 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-heaps-basics-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Heaps: Operations and Applications" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Heaps: Operations and Applications for Heaps: Operations and Applications (18 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-heaps-basics-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Heaps: Operations and Applications" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Heaps: Operations and Applications for Heaps: Operations and Applications (18 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=62_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Heaps: Operations and Applications (18 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=62_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Heaps: Operations and Applications (18 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=62"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Heaps: Operations and Applications (18 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=63 " rel="lecture-link" class="lecture-link">
+Heaps: Implementation Details [Advanced - Optional] (21 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-heaps-guts-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Heaps: Implementation Details" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Heaps: Implementation Details for Heaps: Implementation Details [Advanced - Optional] (21 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-heaps-guts-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Heaps: Implementation Details" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Heaps: Implementation Details for Heaps: Implementation Details [Advanced - Optional] (21 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=63"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Heaps: Implementation Details [Advanced - Optional] (21 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=64 " rel="lecture-link" class="lecture-link">
+Hash Tables: Operations and Applications (19 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-basics-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Hash Tables: Operations and Applications" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Hash Tables: Operations and Applications for Hash Tables: Operations and Applications (19 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-basics-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Hash Tables: Operations and Applications" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Hash Tables: Operations and Applications for Hash Tables: Operations and Applications (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=64_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Hash Tables: Operations and Applications (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=64_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Hash Tables: Operations and Applications (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=64"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Hash Tables: Operations and Applications (19 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=65 " rel="lecture-link" class="lecture-link">
+Hash Tables: Implementation Details, Part I (19 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-guts-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Hash Tables: Implementation Details, Part I" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Hash Tables: Implementation Details, Part I for Hash Tables: Implementation Details, Part I (19 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-guts-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Hash Tables: Implementation Details, Part I" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Hash Tables: Implementation Details, Part I for Hash Tables: Implementation Details, Part I (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=65_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Hash Tables: Implementation Details, Part I (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=65_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Hash Tables: Implementation Details, Part I (19 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=65"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Hash Tables: Implementation Details, Part I (19 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=66 " rel="lecture-link" class="lecture-link">
+Hash Tables: Implementation Details, Part II (22 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-guts-annotated.pptx"
+           data-placement="above" rel="twipsy" 
+           title="Hash Tables: Implementation Details, Part 2" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">Hash Tables: Implementation Details, Part 2 for Hash Tables: Implementation Details, Part II (22 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-guts-annotated.pdf"
+           data-placement="above" rel="twipsy" 
+           title="Hash Tables: Implementation Details, Part 2" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">Hash Tables: Implementation Details, Part 2 for Hash Tables: Implementation Details, Part II (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=66_en&format=txt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (text)" >
+           <i class="icon-align-justify resource" ></i>
+           <div class="hidden">Subtitles (text) for Hash Tables: Implementation Details, Part II (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/subtitles?q=66_en&format=srt"
+           data-placement="above" rel="twipsy" 
+           title="Subtitles (srt)" >
+           <i class="icon-list resource" ></i>
+           <div class="hidden">Subtitles (srt) for Hash Tables: Implementation Details, Part II (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=66"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Hash Tables: Implementation Details, Part II (22 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=67 " rel="lecture-link" class="lecture-link">
+Universal Hashing: Motivation [Optional] (22 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-universal-1.pptx"
+           data-placement="above" rel="twipsy" 
+           title="PPT" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">PPT for Universal Hashing: Motivation [Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-universal-1.pdf"
+           data-placement="above" rel="twipsy" 
+           title="PDF" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">PDF for Universal Hashing: Motivation [Optional] (22 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=67"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Universal Hashing: Motivation [Optional] (22 min)</div>
+        </a>
+</div>
+</li><li class="item_row viewed"><a href="https://class.coursera.org/algo/lecture/view?lecture_id=68 " rel="lecture-link" class="lecture-link">
+Universal Hashing: The Mathematics, Part I [Optional] (27 min)<i class="icon-facetime-video" style="padding-left:5px;"></i>
+</a>
+<div class="item_resource">
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-universal-2.pptx"
+           data-placement="above" rel="twipsy" 
+           title="PPT" >
+           <i class="icon-picture resource" ></i>
+           <div class="hidden">PPT for Universal Hashing: The Mathematics, Part I [Optional] (27 min)</div>
+        </a>
+        <a target="_new" href="https://d19vezwu8eufl6.cloudfront.net/algo1/slides%2Falgo-ds-hash-universal-2.pdf"
+           data-placement="above" rel="twipsy" 
+           title="PDf" >
+           <i class="icon-file resource" ></i>
+           <div class="hidden">PDf for Universal Hashing: The Mathematics, Part I [Optional] (27 min)</div>
+        </a>
+        <a target="_new" href="https://class.coursera.org/algo/lecture/download.mp4?lecture_id=68"
+           data-placement="above" rel="twipsy" 
+           title="Video (MP4)" >
+           <i class="icon-download-alt resource" ></i>
+           <div class="hidden">Video (MP4) for Universal Hashing: The Mathematics, Part I [Optional] (27 min)</div>
+        </a>
+</div>
+</li></ul></div>
+<script>
+    var fancyboxImageURL = 'https://class.coursera.org/assets/app/lecture/css/fancybox.png';
+</script>
+        </div>
+    </div>
+            <div class="hidden">
+        This page features MathJax technology to render mathematical formulae.
+        If you are using a screen reader, please visit <a href="http://www.dessci.com/en/products/mathplayer/">MathPlayer</a> to download the plugin for your browser. Please note that this is an Internet Explorer-only plugin at this time.
+    </div>
+</body>
+
+</html>
+
