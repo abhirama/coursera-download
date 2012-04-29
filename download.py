@@ -2069,8 +2069,50 @@ class Downloader(object):
         self.opener.open(config.redirectURL)
         r = self.opener.open(config.course)
         return r.read()
-        
 
+    @staticmethod
+    def extractFileName(contentDispositionString):
+        print contentDispositionString
+        pattern = 'attachment; filename="(.*?)"'
+        m = re.search(pattern, contentDispositionString)
+        try:
+            return m.group(1)
+        except Exception:
+            return ''
+
+    @staticmethod
+    def getFileName(header):
+        print header.items()
+        try:
+            return Downloader.extractFileName(header['Content-Disposition'])
+        except Exception:
+            print 'In exception'
+            return '' 
+
+    @staticmethod
+    def getContentLength(header):
+        try:
+            return int(header['Content-Length'])
+        except Exception:
+            return 0 
+
+    def download(self, url):
+        r = self.opener.open(url)
+        print r.header.items()
+        #contentLength = Downloader.getContentLength(r.headers) 
+        contentLength = 16 * 1024
+        print 'ContentLength is:', contentLength
+        fileName = Downloader.getFileName(r.headers) 
+        if not fileName:
+            fileName = 'bar.mp4'
+        print 'File name is:', fileName
+        with open(fileName, 'wb') as fp:
+          while True:
+            chunk = r.read(contentLength)
+            if not chunk: 
+                break
+            fp.write(chunk)
+        
 def getVideoPage(config):
     cj = cookielib.CookieJar()
     opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
@@ -2119,16 +2161,18 @@ def sanitiseHeaders(headers):
 
     return sanitisedHeaders
         
+if True:
+    config = Config()
+    downloader = Downloader(config)
+    html = downloader.getVideoListingPage(config)
+    #html = getVideoPage(config)
+    #(headerTexts, links) = getDownloadableContent(open('video-list.html'))
+    (headerTexts, links) = getDownloadableContent(html)
+    sanitisedHeaders = sanitiseHeaders(headerTexts)
+    pprint.pprint(links)
+    pprint.pprint(headerTexts)
+    downloader.download('https://class.coursera.org/algo/lecture/view?lecture_id=3')
 
-config = Config()
-downloader = Downloader(config)
-html = downloader.getVideoListingPage(config)
-#html = getVideoPage(config)
-#(headerTexts, links) = getDownloadableContent(open('video-list.html'))
-(headerTexts, links) = getDownloadableContent(html)
-sanitisedHeaders = sanitiseHeaders(headerTexts)
-pprint.pprint(links)
-pprint.pprint(headerTexts)
 
 if False:
     for sanitisedHeader, header in zip(sanitisedHeaders, headerTexts):
