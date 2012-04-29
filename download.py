@@ -2019,7 +2019,8 @@ if False and __name__ == '__main__':
     print soup.prettify()
 
 
-import cookielib, urllib2, urllib, ConfigParser, pprint
+import cookielib, urllib2, urllib, ConfigParser, pprint, re, os
+
 
 class Config(object): 
     SECTION_CREDENTIALS = 'credentials'
@@ -2089,9 +2090,23 @@ def getDownloadableContent(html):
 
     return (headerTexts, links)
     
+def sanitiseHeaders(headers):
+    sanitisedHeaders = []
+    for header in headers:
+        sanitisedHeaders.append(re.sub('\s+', '_', header))
+
+    return sanitisedHeaders
+        
 
 #config = Config()
 #html = getVideoPage(config)
 (headerTexts, links) = getDownloadableContent(open('video-list.html'))
-pprint.pprint(links)
-pprint.pprint(headerTexts)
+sanitisedHeaders = sanitiseHeaders(headerTexts)
+#pprint.pprint(links)
+#pprint.pprint(headerTexts)
+
+for header in sanitisedHeaders:
+    if not os.path.exists(header):
+        os.makedirs(header)
+    
+
