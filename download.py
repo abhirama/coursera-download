@@ -2048,6 +2048,12 @@ class Config(object):
         splits = courseURL.split('/')
         return splits[3]
 
+def replaceWithUnderscores(fileName):
+        return re.sub('\s+', '_', fileName)
+
+def removeColon(fileName):
+        return re.sub(':', '_', fileName)
+    
 class Downloader(object):
     def __init__(self, config):
         cj = cookielib.CookieJar()
@@ -2084,7 +2090,7 @@ class Downloader(object):
     def getFileName(header):
         print header.items()
         try:
-            return Downloader.extractFileName(header['Content-Disposition'])
+            return Downloader.extractFileName(header['Content-Disposition']).lstrip()
         except Exception:
             print 'In exception'
             return '' 
@@ -2098,14 +2104,12 @@ class Downloader(object):
 
     def download(self, url):
         r = self.opener.open(url)
-        print r.header.items()
-        #contentLength = Downloader.getContentLength(r.headers) 
-        contentLength = 16 * 1024
-        print 'ContentLength is:', contentLength
-        fileName = Downloader.getFileName(r.headers) 
+        contentLength = Downloader.getContentLength(r.headers) 
+        if not contentLength:
+            contentLength = 16 * 1024
+        fileName = removeColon(Downloader.getFileName(r.headers))
         if not fileName:
-            fileName = 'bar.mp4'
-        print 'File name is:', fileName
+            fileName = 'goo.mp4'
         with open(fileName, 'wb') as fp:
           while True:
             chunk = r.read(contentLength)
@@ -2153,13 +2157,14 @@ def getDownloadableContent(html):
         links[header.text] = weekLinks
 
     return (headerTexts, links)
-    
+
 def sanitiseHeaders(headers):
     sanitisedHeaders = []
     for header in headers:
-        sanitisedHeaders.append(re.sub('\s+', '_', header))
+        sanitisedHeaders.append(replaceWithUnderscores(header))
 
     return sanitisedHeaders
+
         
 if True:
     config = Config()
@@ -2169,10 +2174,9 @@ if True:
     #(headerTexts, links) = getDownloadableContent(open('video-list.html'))
     (headerTexts, links) = getDownloadableContent(html)
     sanitisedHeaders = sanitiseHeaders(headerTexts)
-    pprint.pprint(links)
-    pprint.pprint(headerTexts)
-    downloader.download('https://class.coursera.org/algo/lecture/view?lecture_id=3')
-
+    #pprint.pprint(links)
+    #pprint.pprint(headerTexts)
+    downloader.download('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=51')
 
 if False:
     for sanitisedHeader, header in zip(sanitisedHeaders, headerTexts):
