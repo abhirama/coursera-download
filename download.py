@@ -2195,13 +2195,13 @@ def getDownloadableContent(html):
 
     return (weeklyTopics, allClasses)
 
-class PickleLinks:
+class PickleAllClasses:
     CONFIG_DIR = '.info'
-    PICKE_FILE_NAME = os.path.join(CONFIG_DIR, 'links.pkl')
+    PICKE_FILE_NAME = os.path.join(CONFIG_DIR, 'allClasses.pkl')
 
-    def pickle(links):
+    def pickle(allClasses):
         output = open(PICKE_FILE_NAME, 'wb')
-        pickle.dump(links, output)
+        pickle.dump(allClasses, output)
         output.close()
 
     def get():
@@ -2210,8 +2210,15 @@ class PickleLinks:
             return pickle.load(fp)
         else:
             return None
-    
         
+def removeAlreadyDownloaded(allClasses):
+    pickleAllClasses = PickleAllClasses()
+    previousAllClasses = pickleAllClasses.get()
+
+    for previousWeeklyTopic, previousWeeklyClasses in previousAllClasses.items():
+        if previousWeeklyTopic in allClasses:
+            weeklyClass = allClasses[previousWeeklyTopic]
+            
 
 def main():
     config = Config()
@@ -2220,35 +2227,40 @@ def main():
     html = getVideoPage(config)
     #(weeklyTopics, links) = getDownloadableContent(open('video-list.html'))
     (weeklyTopics, allClasses) = getDownloadableContent(html)
+
+    if False:
+        pickleAllClasses = PickleAllClasses()
+        pickleAllClasses.pickle(allClasses)
+
     pprint.pprint(allClasses)
     #pprint.pprint(weeklyTopics)
     #downloader.download('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=51')
+    if True:
+        for weeklyTopic in weeklyTopics:
+            if not os.path.exists(weeklyTopic):
+                os.makedirs(weeklyTopic)
 
-    for weeklyTopic in weeklyTopics:
-        if not os.path.exists(weeklyTopic):
-            os.makedirs(weeklyTopic)
+            os.chdir(weeklyTopic)
 
-        os.chdir(weeklyTopic)
+            weekClasses = allClasses[weeklyTopic]
 
-        weekClasses = allClasses[weeklyTopic]
+            classNames = weekClasses['classNames']
 
-        classNames = weekClasses['classNames']
+            for className in classNames:
+                classResources = weekClasses[className]
 
-        for className in classNames:
-            classResources = weekClasses[className]
+                if not os.path.exists(className):
+                    os.makedirs(className)
+                os.chdir(className)
 
-            if not os.path.exists(className):
-                os.makedirs(className)
-            os.chdir(className)
+                for classResource in classResources:
+                    try:
+                        downloader.download(classResource, className)
+                    except:
+                        print 'Error while downloading file'
+                        pass
 
-            for classResource in classResources:
-                try:
-                    downloader.download(classResource, weeklyTopic)
-                except:
-                    print 'Error while downloading file'
-                    pass
-
+                os.chdir('..')
+        
             os.chdir('..')
-    
-        os.chdir('..')
 main()
