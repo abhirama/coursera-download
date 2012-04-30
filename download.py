@@ -2165,7 +2165,7 @@ def getDownloadableContent(html):
     headers = soup.findAll("h3", { "class" : "list_header" })
 
     weeklyTopics = []
-    links = {}
+    allClasses = {}
 
     for header in headers:
         ul = header.findNext('ul')
@@ -2191,9 +2191,9 @@ def getDownloadableContent(html):
         #This is needed to get the class names in the order they appear in the html
         weekClasses['classNames'] = classNames
 
-        links[header.text] = weekClasses
+        allClasses[header.text] = weekClasses
 
-    return (weeklyTopics, links)
+    return (weeklyTopics, allClasses)
 
 class PickleLinks:
     CONFIG_DIR = '.info'
@@ -2219,8 +2219,8 @@ def main():
     html = downloader.getVideoListingPage(config)
     html = getVideoPage(config)
     #(weeklyTopics, links) = getDownloadableContent(open('video-list.html'))
-    (weeklyTopics, links) = getDownloadableContent(html)
-    pprint.pprint(links)
+    (weeklyTopics, allClasses) = getDownloadableContent(html)
+    pprint.pprint(allClasses)
     #pprint.pprint(weeklyTopics)
     #downloader.download('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=51')
 
@@ -2230,7 +2230,7 @@ def main():
 
         os.chdir(weeklyTopic)
 
-        weekClasses = links[weeklyTopic]
+        weekClasses = allClasses[weeklyTopic]
 
         classNames = weekClasses['classNames']
 
