@@ -2199,14 +2199,17 @@ class PickleAllClasses:
     CONFIG_DIR = '.info'
     PICKE_FILE_NAME = os.path.join(CONFIG_DIR, 'allClasses.pkl')
 
-    def pickle(allClasses):
-        output = open(PICKE_FILE_NAME, 'wb')
+    def save(self, allClasses):
+        if not os.path.exists(PickleAllClasses.CONFIG_DIR):
+            os.makedirs(PickleAllClasses.CONFIG_DIR)
+            
+        output = open(PickleAllClasses.PICKE_FILE_NAME, 'wb')
         pickle.dump(allClasses, output)
         output.close()
 
-    def get():
-        if os.path.exists(PICKE_FILE_NAME):
-            fp = open(PICKE_FILE_NAME, 'rb')
+    def get(self):
+        if os.path.exists(PickleAllClasses.PICKE_FILE_NAME):
+            fp = open(PickleAllClasses.PICKE_FILE_NAME, 'rb')
             return pickle.load(fp)
         else:
             return None
@@ -2215,28 +2218,55 @@ def removeAlreadyDownloaded(allClasses):
     pickleAllClasses = PickleAllClasses()
     previousAllClasses = pickleAllClasses.get()
 
-    for previousWeeklyTopic, previousWeeklyClasses in previousAllClasses.items():
+    #This is the first download
+    if not previousAllClasses:
+        return allClasses
+    
+    for previousWeeklyTopic, previousWeekClasses in previousAllClasses.items():
         if previousWeeklyTopic in allClasses:
-            weeklyClass = allClasses[previousWeeklyTopic]
-            
+            weekClasses = allClasses[previousWeeklyTopic]
 
+            for previousClassName, previousClassContents in previousWeekClasses.items():
+                if previousClassName == 'classNames':
+                    continue
+
+                if previousClassName in weekClasses:
+                    classContents = weekClasses[previousClassName]
+
+                    diffedClassContents = list(set(classContents) - set(previousClassContents))
+
+                    if len(diffedClassContents) == 0:
+                        del weekClasses[previousClassName]
+                    else:
+                        weekClasses[previousClassName] = diffedClassContents
+
+            # If the size is one, it means the dict has only the values corresponding to the key classNames 
+            if len(weekClasses.keys()) == 1:
+                del allClasses[previousWeeklyTopic]
+                        
+    return allClasses
+                    
 def main():
     config = Config()
     downloader = Downloader(config)
     html = downloader.getVideoListingPage(config)
     html = getVideoPage(config)
-    #(weeklyTopics, links) = getDownloadableContent(open('video-list.html'))
+    #(weeklyTopics, allClasses) = getDownloadableContent(open('video-list.html'))
     (weeklyTopics, allClasses) = getDownloadableContent(html)
 
-    if False:
-        pickleAllClasses = PickleAllClasses()
-        pickleAllClasses.pickle(allClasses)
+    #pprint.pprint(allClasses)
+
+    allClasses = removeAlreadyDownloaded(allClasses)
 
     pprint.pprint(allClasses)
+
     #pprint.pprint(weeklyTopics)
     #downloader.download('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=51')
     if True:
         for weeklyTopic in weeklyTopics:
+            if weeklyTopic not in allClasses:
+                continue
+
             if not os.path.exists(weeklyTopic):
                 os.makedirs(weeklyTopic)
 
@@ -2263,4 +2293,8 @@ def main():
                 os.chdir('..')
         
             os.chdir('..')
+    
+    pickleAllClasses = PickleAllClasses()
+    pickleAllClasses.save(allClasses)
+
 main()
