@@ -2173,8 +2173,10 @@ def getDownloadableContent(html):
         lis = ul.findAll('li')
         weekClasses = {}
 
+        classNames = []
         for li in lis:
             className = sanitiseFileName(li.a.text)
+            classNames.append(className)
             classResources = li.find('div', {'class': 'item_resource'})
 
             hrefs = classResources.findAll('a')
@@ -2185,6 +2187,9 @@ def getDownloadableContent(html):
                 resourceLinks.append(href['href'])
             
             weekClasses[className] = resourceLinks
+
+        #This is needed to get the class names in the order they appear in the html
+        weekClasses['classNames'] = classNames
 
         links[header.text] = weekClasses
 
@@ -2227,7 +2232,11 @@ def main():
 
         weekClasses = links[weeklyTopic]
 
-        for className, classResources in weekClasses.items():
+        classNames = weekClasses['classNames']
+
+        for className in classNames:
+            classResources = weekClasses[className]
+
             if not os.path.exists(className):
                 os.makedirs(className)
             os.chdir(className)
