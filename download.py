@@ -2018,7 +2018,7 @@ if False and __name__ == '__main__':
     print soup.prettify()
 
 
-import cookielib, urllib2, urllib, ConfigParser, pprint, re, os, httplib
+import cookielib, urllib2, urllib, ConfigParser, pprint, re, os, httplib, pickle
 
 
 class Config(object): 
@@ -2174,46 +2174,66 @@ def getDownloadableContent(html):
 
     for header in headers:
         ul = header.findNext('ul')
-        headerTexts.append(header.text)
-        items = ul.findAll('div', {'class': 'item_resource'})
-        weekLinks = []
-        for item in items:
-            hrefs = item.findAll('a')
-            lessonLinks = []
+        headerTexts.append(sanitiseFileName(header.text))
+        lis = ul.findAll('li')
+        weekClasses = {}
+
+        for li in lis:
+            className = sanitiseFileName(li.a.text)
+            classResources = li.find('div', {'class': 'item_resource'})
+
+            hrefs = classResources.findAll('a')
+
+            resourceLinks = []
+
             for href in hrefs:
-                lessonLinks.append(href['href'])
-            weekLinks.append(lessonLinks)
-        links[header.text] = weekLinks
+                resourceLinks.append(href['href'])
+            
+            weekClasses[className] = resourceLinks
+
+        links[header.text] = weekClasses
 
     return (headerTexts, links)
 
-def sanitiseHeaders(headers):
-    sanitisedHeaders = []
-    for header in headers:
-        sanitisedHeaders.append(replaceWithUnderscores(header))
+class PickleLinks:
+    CONFIG_DIR = '.info'
+    PICKE_FILE_NAME = os.path.join(CONFIG_DIR, 'links.pkl')
 
-    return sanitisedHeaders
+    def pickle(links):
+        output = open(PICKE_FILE_NAME, 'wb')
+        pickle.dump(links, output)
+        output.close()
+
+    def get():
+        if os.path.exists(PICKE_FILE_NAME):
+            fp = open(PICKE_FILE_NAME, 'rb')
+            return pickle.load(fp)
+        else:
+            return None
+    
+        
 
 def main():
-    config = Config()
-    downloader = Downloader(config)
-    html = downloader.getVideoListingPage(config)
+    #config = Config()
+    #downloader = Downloader(config)
+    #html = downloader.getVideoListingPage(config)
     #html = getVideoPage(config)
-    #(headerTexts, links) = getDownloadableContent(open('video-list.html'))
-    (headerTexts, links) = getDownloadableContent(html)
-    sanitisedHeaders = sanitiseHeaders(headerTexts)
-    #pprint.pprint(links)
+    (headerTexts, links) = getDownloadableContent(open('video-list.html'))
+    #(headerTexts, links) = getDownloadableContent(html)
+    pprint.pprint(links)
     #pprint.pprint(headerTexts)
     #downloader.download('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=51')
 
-    for sanitisedHeader, header in zip(sanitisedHeaders, headerTexts):
-        if not os.path.exists(sanitisedHeader):
-            os.makedirs(sanitisedHeader)
+    if False:
+        for sanitisedHeader, header in zip(sanitisedHeaders, headerTexts):
+            if not os.path.exists(sanitisedHeader):
+                os.makedirs(sanitisedHeader)
 
-        weeklyDownloads = links[header]
+            weeklyDownloads = links[header]
 
-        for weeklyDownload in weeklyDownloads:
-            for classDownload in weeklyDownload:
-                downloader.download(classDownload, sanitisedHeader)
+            for weeklyDownload in weeklyDownloads:
+                for classDownload in weeklyDownload:
+                    downloader.download(classDownload, sanitisedHeader)
 
+    
 main()
