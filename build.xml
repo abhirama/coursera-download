@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<project name="smushit" basedir="." default="createZip">
+    <property name="version" value="0.1"/>
+
+    <target name="createZip" description="Creates the package zip file">
+        <zip destfile="dist/coursera-download-v${version}.zip" basedir="." includes="*.py, *.cfg"/>
+    </target>
+
+</project>
