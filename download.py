@@ -2240,6 +2240,37 @@ def removeAlreadyDownloaded(allClasses):
         return allClasses
     
     return diffAllClasses(previousAllClasses, allClasses)
+
+def mergeAllClasses(previousAllClasses, diffedAllClasses):
+    for diffedWeeklyTopic, diffedWeekClasses in diffedWeekClasses.items():
+        if diffedWeeklyTopic in previousAllClasses:
+            diffedWeekClasses = diffedAllClasses[diffedWeeklyTopic]
+            previousWeekClasses = previousAllClasses[diffedWeeklyTopic]
+
+            for diffedClassName, diffedClassContents in diffedWeekClasses:
+                if diffedClassName == 'classNames':
+                    previousAllClasses[diffedWeeklyTopic][diffedClassName] = diffedWeekClasses[diffedClassName]
+                    continue
+
+                if diffedClassName in previousWeekClasses:
+                    previousWeekClasses[diffedClassName] = previousWeekClasses[diffedClassName] + diffedClassContents
+                else:
+                    previousWeekClasses[diffedClassName] = diffedClassContents
+        else:
+            previousAllClasses[diffedWeeklyTopic] = diffedAllClasses[diffedWeeklyTopic]
+
+    return previousAllClasses
+
+
+def mergeWithPreviousDownloaded(allClasses):
+    pickleAllClasses = PickleAllClasses()
+    previousAllClasses = pickleAllClasses.get()
+
+    #This is the first download
+    if not previousAllClasses:
+        return allClasses
+    
+    return mergeAllClasses(previousAllClasses, allClasses)
                     
 def main():
     config = Config()
@@ -2253,7 +2284,7 @@ def main():
 
     allClasses = removeAlreadyDownloaded(allClasses)
 
-    #pprint.pprint(allClasses)
+    pprint.pprint(allClasses)
     #pprint.pprint(weeklyTopics)
     #downloader.download('https://class.coursera.org/compilers/lecture/download.mp4?lecture_id=13', '.')
 
@@ -2291,6 +2322,7 @@ def main():
     
         os.chdir('..')
     
+    allClasses = mergeAllClasses(allClasses)
     pickleAllClasses = PickleAllClasses()
     pickleAllClasses.save(allClasses)
 
