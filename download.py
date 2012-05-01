@@ -2010,16 +2010,7 @@ class UnicodeDammit:
 
 #######################################################################
 
-
-#By default, act as an HTML pretty-printer.
-if False and __name__ == '__main__':
-    import sys
-    soup = BeautifulSoup(sys.stdin)
-    print soup.prettify()
-
-
 import cookielib, urllib2, urllib, ConfigParser, pprint, re, os, httplib, pickle, sys
-
 
 class Config(object): 
     SECTION_CREDENTIALS = 'credentials'
@@ -2047,9 +2038,6 @@ class Config(object):
     def getJustClass(self, courseURL):
         splits = courseURL.split('/')
         return splits[3]
-
-def replaceWithUnderscores(fileName):
-        return re.sub('\s+', '_', fileName)
 
 def sanitiseFileName(fileName):
         return re.sub('[:\?\\\\]', '', fileName)
@@ -2172,8 +2160,8 @@ def getDownloadableContent(html):
 
     for header in headers:
         ul = header.findNext('ul')
-        sanitisesHeaderName = sanitiseFileName(header.text)
-        weeklyTopics.append(sanitisesHeaderName)
+        sanitisedHeaderName = sanitiseFileName(header.text)
+        weeklyTopics.append(sanitisedHeaderName)
         lis = ul.findAll('li')
         weekClasses = {}
 
@@ -2195,7 +2183,7 @@ def getDownloadableContent(html):
         #This is needed to get the class names in the order they appear in the html
         weekClasses['classNames'] = classNames
 
-        allClasses[sanitisesHeaderName] = weekClasses
+        allClasses[sanitisedHeaderName] = weekClasses
 
     return (weeklyTopics, allClasses)
 
@@ -2217,15 +2205,8 @@ class PickleAllClasses:
             return pickle.load(fp)
         else:
             return None
-        
-def removeAlreadyDownloaded(allClasses):
-    pickleAllClasses = PickleAllClasses()
-    previousAllClasses = pickleAllClasses.get()
 
-    #This is the first download
-    if not previousAllClasses:
-        return allClasses
-    
+def diffAllClasses(previousAllClasses, allClasses):
     for previousWeeklyTopic, previousWeekClasses in previousAllClasses.items():
         if previousWeeklyTopic in allClasses:
             weekClasses = allClasses[previousWeeklyTopic]
@@ -2249,6 +2230,16 @@ def removeAlreadyDownloaded(allClasses):
                 del allClasses[previousWeeklyTopic]
                         
     return allClasses
+        
+def removeAlreadyDownloaded(allClasses):
+    pickleAllClasses = PickleAllClasses()
+    previousAllClasses = pickleAllClasses.get()
+
+    #This is the first download
+    if not previousAllClasses:
+        return allClasses
+    
+    return diffAllClasses(previousAllClasses, allClasses)
                     
 def main():
     config = Config()
@@ -2258,52 +2249,52 @@ def main():
     #(weeklyTopics, allClasses) = getDownloadableContent(open('video-list.html')) 
     (weeklyTopics, allClasses) = getDownloadableContent(html)
 
-    #allClasses = removeAlreadyDownloaded(allClasses)
+    allClasses = removeAlreadyDownloaded(allClasses)
 
     #pprint.pprint(allClasses)
     #pprint.pprint(weeklyTopics)
     #downloader.download('https://class.coursera.org/compilers/lecture/download.mp4?lecture_id=13', '.')
 
-    pprint.pprint(allClasses.keys())
-    print '---------------------------------------------'
-    pprint.pprint(weeklyTopics)
+    #pprint.pprint(allClasses.keys())
+    #print '---------------------------------------------'
+    #pprint.pprint(weeklyTopics)
 
-    if True:
-        for weeklyTopic in weeklyTopics:
-            if weeklyTopic not in allClasses:
-                print 'Weekly topic not in all classes:', weeklyTopic
-                continue
+    for weeklyTopic in weeklyTopics:
+        if weeklyTopic not in allClasses:
+            #print 'Weekly topic not in all classes:', weeklyTopic
+            continue
 
-            print 'Weekly topic is:', weeklyTopic
-            if not os.path.exists(weeklyTopic):
-                os.makedirs(weeklyTopic)
+        #print 'Weekly topic is:', weeklyTopic
+        if not os.path.exists(weeklyTopic):
+            os.makedirs(weeklyTopic)
 
-            os.chdir(weeklyTopic)
+        os.chdir(weeklyTopic)
 
-            weekClasses = allClasses[weeklyTopic]
+        weekClasses = allClasses[weeklyTopic]
 
-            classNames = weekClasses['classNames']
+        classNames = weekClasses['classNames']
 
-            for className in classNames:
-                classResources = weekClasses[className]
+        for className in classNames:
+            classResources = weekClasses[className]
 
-                if not os.path.exists(className):
-                    os.makedirs(className)
-                os.chdir(className)
+            if not os.path.exists(className):
+                os.makedirs(className)
+            os.chdir(className)
 
-                for classResource in classResources:
-                    try:
-                        print 'Trying to download - ', classResource, ' - ', className
-                        downloader.download(classResource, className)
-                    except Exception:
-                        print 'Error while downloading file', sys.exc_info()[0]
-                        pass
+            for classResource in classResources:
+                try:
+                    #print 'Trying to download - ', classResource, ' - ', className
+                    downloader.download(classResource, className)
+                except Exception:
+                    print 'Error while downloading file', sys.exc_info()[0]
+                    pass
 
-                os.chdir('..')
-        
             os.chdir('..')
+    
+        os.chdir('..')
     
     pickleAllClasses = PickleAllClasses()
     pickleAllClasses.save(allClasses)
 
-main()
+if __name__ == '__main__':
+    main()
