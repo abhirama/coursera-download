@@ -2244,10 +2244,12 @@ def removeAlreadyDownloaded(allClasses):
 def main():
     config = Config()
     downloader = Downloader(config)
+    print 'Logged in into coursera'
     html = downloader.getVideoListingPage(config)
     html = getVideoPage(config)
     #(weeklyTopics, allClasses) = getDownloadableContent(open('video-list.html')) 
     (weeklyTopics, allClasses) = getDownloadableContent(html)
+    print 'Got all downloadable content'
 
     allClasses = removeAlreadyDownloaded(allClasses)
 
@@ -2282,12 +2284,8 @@ def main():
             os.chdir(className)
 
             for classResource in classResources:
-                try:
-                    #print 'Trying to download - ', classResource, ' - ', className
-                    downloader.download(classResource, className)
-                except Exception:
-                    print 'Error while downloading file', sys.exc_info()[0]
-                    pass
+                print 'Downloading resource - ', classResource
+                downloader.download(classResource, className)
 
             os.chdir('..')
     
