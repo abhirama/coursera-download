@@ -2226,10 +2226,6 @@ def mergeAllClasses(previousAllClasses, diffedAllClasses):
     for diffedWeeklyTopic, diffedWeekClasses in diffedAllClasses.items():
         if diffedWeeklyTopic in previousAllClasses:
             previousWeekClasses = previousAllClasses[diffedWeeklyTopic]
-
-            print '----------------------------------------------------'
-            pprint.pprint(diffedWeekClasses)
-            print '----------------------------------------------------'
             for diffedClassName, diffedClassContents in diffedWeekClasses.items():
                 if diffedClassName == 'classNames':
                     previousAllClasses[diffedWeeklyTopic][diffedClassName] = diffedWeekClasses[diffedClassName]
@@ -2258,60 +2254,59 @@ def mergeWithPreviousDownloaded(allClasses):
 def main():
     config = Config()
     downloader = Downloader(config)
-    print 'Logged in into coursera'
+    print 'Logged into Coursera'
     html = downloader.getVideoListingPage(config)
-    (weeklyTopics, allClasses) = getDownloadableContent(open('test-htmls/automata.html')) 
+    #(weeklyTopics, allClasses) = getDownloadableContent(open('test-htmls/automata.html')) 
 
-    if True:
-        #(weeklyTopics, allClasses) = getDownloadableContent(html)
-        print 'Got all downloadable content'
+    (weeklyTopics, allClasses) = getDownloadableContent(html)
+    print 'Got all downloadable content'
 
-        allClasses = removeAlreadyDownloaded(allClasses)
+    allClasses = removeAlreadyDownloaded(allClasses)
 
-        pprint.pprint(allClasses)
-        #pprint.pprint(weeklyTopics)
-        #downloader.download('https://class.coursera.org/compilers/lecture/download.mp4?lecture_id=13', '.')
+    #pprint.pprint(allClasses)
+    #pprint.pprint(weeklyTopics)
+    #downloader.download('https://class.coursera.org/compilers/lecture/download.mp4?lecture_id=13', '.')
 
-        #pprint.pprint(allClasses.keys())
-        #print '---------------------------------------------'
-        #pprint.pprint(weeklyTopics)
+    #pprint.pprint(allClasses.keys())
+    #print '---------------------------------------------'
+    #pprint.pprint(weeklyTopics)
 
-        for weeklyTopic in weeklyTopics:
-            if weeklyTopic not in allClasses:
-                #print 'Weekly topic not in all classes:', weeklyTopic
+    for weeklyTopic in weeklyTopics:
+        if weeklyTopic not in allClasses:
+            #print 'Weekly topic not in all classes:', weeklyTopic
+            continue
+
+        #print 'Weekly topic is:', weeklyTopic
+        if not os.path.exists(weeklyTopic):
+            os.makedirs(weeklyTopic)
+
+        os.chdir(weeklyTopic)
+
+        weekClasses = allClasses[weeklyTopic]
+
+        classNames = weekClasses['classNames']
+
+        for className in classNames:
+            if className not in weekClasses:
                 continue
 
-            #print 'Weekly topic is:', weeklyTopic
-            if not os.path.exists(weeklyTopic):
-                os.makedirs(weeklyTopic)
+            classResources = weekClasses[className]
 
-            os.chdir(weeklyTopic)
+            if not os.path.exists(className):
+                os.makedirs(className)
+            os.chdir(className)
 
-            weekClasses = allClasses[weeklyTopic]
+            for classResource in classResources:
+                print 'Downloading resource - ', classResource
+                downloader.download(classResource, className)
 
-            classNames = weekClasses['classNames']
-
-            for className in classNames:
-                if className not in weekClasses:
-                    continue
-
-                classResources = weekClasses[className]
-
-                if not os.path.exists(className):
-                    os.makedirs(className)
-                os.chdir(className)
-
-                for classResource in classResources:
-                    print 'Downloading resource - ', classResource
-                    downloader.download(classResource, className)
-
-                os.chdir('..')
-        
             os.chdir('..')
-        
-        allClasses = mergeWithPreviousDownloaded(allClasses)
-        pickleAllClasses = PickleAllClasses()
-        pickleAllClasses.save(allClasses)
+    
+        os.chdir('..')
+    
+    allClasses = mergeWithPreviousDownloaded(allClasses)
+    pickleAllClasses = PickleAllClasses()
+    pickleAllClasses.save(allClasses)
 
 if __name__ == '__main__':
     main()
