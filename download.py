@@ -2132,25 +2132,6 @@ class Downloader(object):
                     break
                 fp.write(chunk)
         
-def getVideoPage(config):
-    cj = cookielib.CookieJar()
-    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-
-    formParams = {
-        'email_address': config.username,
-        'password': config.password,
-    }
-
-    formParams = urllib.urlencode(formParams)
-
-    #print config.loginURL
-    opener.open(config.loginURL, formParams)
-    #print config.redirectURL
-    opener.open(config.redirectURL)
-    r = opener.open(config.course)
-
-    return r.read()
-
 def getDownloadableContent(html):
     soup = BeautifulSoup(html)
     headers = soup.findAll("h3", { "class" : "list_header" })
@@ -2242,12 +2223,14 @@ def removeAlreadyDownloaded(allClasses):
     return diffAllClasses(previousAllClasses, allClasses)
 
 def mergeAllClasses(previousAllClasses, diffedAllClasses):
-    for diffedWeeklyTopic, diffedWeekClasses in diffedWeekClasses.items():
+    for diffedWeeklyTopic, diffedWeekClasses in diffedAllClasses.items():
         if diffedWeeklyTopic in previousAllClasses:
-            diffedWeekClasses = diffedAllClasses[diffedWeeklyTopic]
             previousWeekClasses = previousAllClasses[diffedWeeklyTopic]
 
-            for diffedClassName, diffedClassContents in diffedWeekClasses:
+            print '----------------------------------------------------'
+            pprint.pprint(diffedWeekClasses)
+            print '----------------------------------------------------'
+            for diffedClassName, diffedClassContents in diffedWeekClasses.items():
                 if diffedClassName == 'classNames':
                     previousAllClasses[diffedWeeklyTopic][diffedClassName] = diffedWeekClasses[diffedClassName]
                     continue
@@ -2257,7 +2240,7 @@ def mergeAllClasses(previousAllClasses, diffedAllClasses):
                 else:
                     previousWeekClasses[diffedClassName] = diffedClassContents
         else:
-            previousAllClasses[diffedWeeklyTopic] = diffedAllClasses[diffedWeeklyTopic]
+            previousAllClasses[diffedWeeklyTopic] = diffedWeekClasses
 
     return previousAllClasses
 
@@ -2277,54 +2260,58 @@ def main():
     downloader = Downloader(config)
     print 'Logged in into coursera'
     html = downloader.getVideoListingPage(config)
-    html = getVideoPage(config)
-    #(weeklyTopics, allClasses) = getDownloadableContent(open('video-list.html')) 
-    (weeklyTopics, allClasses) = getDownloadableContent(html)
-    print 'Got all downloadable content'
+    (weeklyTopics, allClasses) = getDownloadableContent(open('test-htmls/automata.html')) 
 
-    allClasses = removeAlreadyDownloaded(allClasses)
+    if True:
+        #(weeklyTopics, allClasses) = getDownloadableContent(html)
+        print 'Got all downloadable content'
 
-    pprint.pprint(allClasses)
-    #pprint.pprint(weeklyTopics)
-    #downloader.download('https://class.coursera.org/compilers/lecture/download.mp4?lecture_id=13', '.')
+        allClasses = removeAlreadyDownloaded(allClasses)
 
-    #pprint.pprint(allClasses.keys())
-    #print '---------------------------------------------'
-    #pprint.pprint(weeklyTopics)
+        pprint.pprint(allClasses)
+        #pprint.pprint(weeklyTopics)
+        #downloader.download('https://class.coursera.org/compilers/lecture/download.mp4?lecture_id=13', '.')
 
-    for weeklyTopic in weeklyTopics:
-        if weeklyTopic not in allClasses:
-            #print 'Weekly topic not in all classes:', weeklyTopic
-            continue
+        #pprint.pprint(allClasses.keys())
+        #print '---------------------------------------------'
+        #pprint.pprint(weeklyTopics)
 
-        #print 'Weekly topic is:', weeklyTopic
-        if not os.path.exists(weeklyTopic):
-            os.makedirs(weeklyTopic)
+        for weeklyTopic in weeklyTopics:
+            if weeklyTopic not in allClasses:
+                #print 'Weekly topic not in all classes:', weeklyTopic
+                continue
 
-        os.chdir(weeklyTopic)
+            #print 'Weekly topic is:', weeklyTopic
+            if not os.path.exists(weeklyTopic):
+                os.makedirs(weeklyTopic)
 
-        weekClasses = allClasses[weeklyTopic]
+            os.chdir(weeklyTopic)
 
-        classNames = weekClasses['classNames']
+            weekClasses = allClasses[weeklyTopic]
 
-        for className in classNames:
-            classResources = weekClasses[className]
+            classNames = weekClasses['classNames']
 
-            if not os.path.exists(className):
-                os.makedirs(className)
-            os.chdir(className)
+            for className in classNames:
+                if className not in weekClasses:
+                    continue
 
-            for classResource in classResources:
-                print 'Downloading resource - ', classResource
-                downloader.download(classResource, className)
+                classResources = weekClasses[className]
 
+                if not os.path.exists(className):
+                    os.makedirs(className)
+                os.chdir(className)
+
+                for classResource in classResources:
+                    print 'Downloading resource - ', classResource
+                    downloader.download(classResource, className)
+
+                os.chdir('..')
+        
             os.chdir('..')
-    
-        os.chdir('..')
-    
-    allClasses = mergeAllClasses(allClasses)
-    pickleAllClasses = PickleAllClasses()
-    pickleAllClasses.save(allClasses)
+        
+        allClasses = mergeWithPreviousDownloaded(allClasses)
+        pickleAllClasses = PickleAllClasses()
+        pickleAllClasses.save(allClasses)
 
 if __name__ == '__main__':
     main()
