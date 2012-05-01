@@ -4,7 +4,7 @@
     <property name="version" value="0.1"/>
 
     <target name="createZip" description="Creates the package zip file">
-        <zip destfile="dist/coursera-download-v${version}.zip" basedir="." includes="*.py, *.cfg"/>
+        <zip destfile="dist/coursera-download-v${version}.zip" basedir="." includes="download.py, download.cfg, readme.txt"/>
     </target>
 
 </project>
