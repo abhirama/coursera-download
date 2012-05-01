@@ -2018,7 +2018,7 @@ if False and __name__ == '__main__':
     print soup.prettify()
 
 
-import cookielib, urllib2, urllib, ConfigParser, pprint, re, os, httplib, pickle
+import cookielib, urllib2, urllib, ConfigParser, pprint, re, os, httplib, pickle, sys
 
 
 class Config(object): 
@@ -2078,7 +2078,7 @@ class Downloader(object):
 
     @staticmethod
     def extractFileName(contentDispositionString):
-        print contentDispositionString
+        #print contentDispositionString
         pattern = 'attachment; filename="(.*?)"'
         m = re.search(pattern, contentDispositionString)
         try:
@@ -2119,8 +2119,11 @@ class Downloader(object):
         return splits[len(splits) - 1]
 
     def download(self, url, folder):
-        print url
+        #print url
         r = self.opener.open(url)
+
+        #print r.headers.items()
+
         contentLength = Downloader.getContentLength(r.headers) 
         if not contentLength:
             contentLength = 16 * 1024
@@ -2152,9 +2155,9 @@ def getVideoPage(config):
 
     formParams = urllib.urlencode(formParams)
 
-    print config.loginURL
+    #print config.loginURL
     opener.open(config.loginURL, formParams)
-    print config.redirectURL
+    #print config.redirectURL
     opener.open(config.redirectURL)
     r = opener.open(config.course)
 
@@ -2169,7 +2172,8 @@ def getDownloadableContent(html):
 
     for header in headers:
         ul = header.findNext('ul')
-        weeklyTopics.append(sanitiseFileName(header.text))
+        sanitisesHeaderName = sanitiseFileName(header.text)
+        weeklyTopics.append(sanitisesHeaderName)
         lis = ul.findAll('li')
         weekClasses = {}
 
@@ -2191,7 +2195,7 @@ def getDownloadableContent(html):
         #This is needed to get the class names in the order they appear in the html
         weekClasses['classNames'] = classNames
 
-        allClasses[header.text] = weekClasses
+        allClasses[sanitisesHeaderName] = weekClasses
 
     return (weeklyTopics, allClasses)
 
@@ -2251,22 +2255,26 @@ def main():
     downloader = Downloader(config)
     html = downloader.getVideoListingPage(config)
     html = getVideoPage(config)
-    #(weeklyTopics, allClasses) = getDownloadableContent(open('video-list.html'))
+    #(weeklyTopics, allClasses) = getDownloadableContent(open('video-list.html')) 
     (weeklyTopics, allClasses) = getDownloadableContent(html)
 
+    #allClasses = removeAlreadyDownloaded(allClasses)
+
     #pprint.pprint(allClasses)
-
-    allClasses = removeAlreadyDownloaded(allClasses)
-
-    pprint.pprint(allClasses)
-
     #pprint.pprint(weeklyTopics)
-    #downloader.download('https://class.coursera.org/algo/lecture/download.mp4?lecture_id=51')
+    #downloader.download('https://class.coursera.org/compilers/lecture/download.mp4?lecture_id=13', '.')
+
+    pprint.pprint(allClasses.keys())
+    print '---------------------------------------------'
+    pprint.pprint(weeklyTopics)
+
     if True:
         for weeklyTopic in weeklyTopics:
             if weeklyTopic not in allClasses:
+                print 'Weekly topic not in all classes:', weeklyTopic
                 continue
 
+            print 'Weekly topic is:', weeklyTopic
             if not os.path.exists(weeklyTopic):
                 os.makedirs(weeklyTopic)
 
@@ -2285,9 +2293,10 @@ def main():
 
                 for classResource in classResources:
                     try:
+                        print 'Trying to download - ', classResource, ' - ', className
                         downloader.download(classResource, className)
-                    except:
-                        print 'Error while downloading file'
+                    except Exception:
+                        print 'Error while downloading file', sys.exc_info()[0]
                         pass
 
                 os.chdir('..')
