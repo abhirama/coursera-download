@@ -2155,7 +2155,6 @@ class Downloader(object):
         try:
             return header['Content-Type'] == 'text/html'
         except Exception:
-            #Should return False?
             return False
         
 
