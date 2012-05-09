@@ -2009,8 +2009,60 @@ class UnicodeDammit:
                  '\x9f' : ('Yuml', ''),}
 
 #######################################################################
+#AbsoluteURLGen copy pasted from http://www.python-forum.org/pythonforum/viewtopic.php?f=5&t=12515
+#Have not *deeply* gone through the code or tested it much, other than the samples present in the above link, but it works for now.
+#######################################################################
+import re
 
-import cookielib, urllib2, urllib, ConfigParser, pprint, re, os, httplib, pickle, sys
+class AbsoluteURLGen(object):
+    def __init__(self, base='', replace_base=False):
+        self.replace_base = replace_base
+        self.base_regex = re.compile('^(https?://)(.*)$')
+        self.base = self.normalize_base(base)
+   
+    def normalize_base(self, url):
+        base = url
+        if self.base_regex.search(base):
+            # rid thyself of 'http(s)://'
+            base = self.base_regex.search(url).group(2)
+            if not base.rfind('/') == -1:
+                # keep only the directory, not the filename
+                base = base[:base.rfind('/')+1]
+            base = self.base_regex.search(url).group(1) + base
+        return base
+       
+    def get_absolute(self, url=''):
+        if not self.base or (
+                self.replace_base and self.base_regex.search(url)):
+            self.base = self.normalize_base(url)
+            return url
+        elif self.base_regex.search(url):
+            # it's an absolute url, but we don't want to keep it's base
+            return url
+        else:
+            # now, it's time to do some converting.
+            if url.startswith("../"):
+                # they want the parent dir
+                if not self.base[:-2].rfind("/") == -1:
+                    base = self.base[:self.base[:-2].rfind("/")+1]
+                    return base + url[3:]
+                else:
+                    # there are no subdirs... broken link?
+                    return url
+            elif url.startswith("/"):
+                # file is in the root dir
+                protocol, base = self.base_regex.search(self.base).groups()
+                # remove subdirs until we're left with the root
+                while not base[:-2].rfind("/") == -1:
+                    base = base[:base[:-2].rfind('/')]
+                return protocol + base + url
+            else:
+                if url.startswith("./"):
+                    url = url[2:]
+                return self.base + url
+
+#######################################################################
+import cookielib, urllib2, urllib, ConfigParser, pprint, os, httplib, pickle, sys
 
 class Config(object): 
     SECTION_CREDENTIALS = 'credentials'
@@ -2031,6 +2083,7 @@ class Config(object):
         self.username = config.get(Config.SECTION_CREDENTIALS, Config.SECTION_CREDENTIALS_USERNAME)
         self.password = config.get(Config.SECTION_CREDENTIALS, Config.SECTION_CREDENTIALS_PASSWORD)
         self.course = config.get(Config.SECTION_DOWNLOAD, Config.SECTION_DOWNLOAD_CLASS)
+        Config.course = self.course
         self.clazz = self.getJustClass(self.course)
         self.loginURL = Config.LOGIN_URL
         self.redirectURL = Config.REDIRECT_URL.format(self.clazz)
@@ -2120,6 +2173,7 @@ class Downloader(object):
         r = self.opener.open(url)
 
         if (Downloader.isHtml(r.headers)):
+            print url, ' - is not downloadable'
             return
 
         #print r.headers.items()
@@ -2262,6 +2316,9 @@ def mergeWithPreviousDownloaded(allClasses):
         return allClasses
     
     return mergeAllClasses(previousAllClasses, allClasses)
+
+def isValidURL(url):
+    return url.startswith('http') or url.startswith('https')
                     
 def main():
     config = Config()
@@ -2309,6 +2366,15 @@ def main():
             os.chdir(className)
 
             for classResource in classResources:
+                if not isValidURL(classResource):
+                    absoluteURLGen = AbsoluteURLGen(Config.course)
+                    classResource = absoluteURLGen.get_absolute(classResource)
+                    print classResource, ' - is not a valid url'
+                    
+                    if not isValidURL(classResource):
+                        print classResource, ' - is not a valid url'
+                        continue
+                    
                 print 'Downloading resource - ', classResource
                 downloader.download(classResource, className)
 
