@@ -2098,6 +2098,15 @@ class Downloader(object):
             return 0 
 
     @staticmethod
+    def isHtml(header):
+        try:
+            return header['Content-Type'] == 'text/html'
+        except Exception:
+            #Should return False?
+            return False
+        
+
+    @staticmethod
     def getFileNameFromURL(url):
         splits = url.split('/')    
         splits.reverse()
@@ -2109,6 +2118,9 @@ class Downloader(object):
     def download(self, url, folder):
         #print url
         r = self.opener.open(url)
+
+        if (Downloader.isHtml(r.headers)):
+            return
 
         #print r.headers.items()
 
