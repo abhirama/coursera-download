@@ -2093,7 +2093,7 @@ class Config(object):
         return splits[3]
 
 def sanitiseFileName(fileName):
-        return re.sub('[:\?\\\\]', '', fileName)
+        return re.sub('[:\?\\\\/]', '', fileName)
     
 class Downloader(object):
     def __init__(self, config):
