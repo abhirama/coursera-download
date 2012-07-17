@@ -2074,7 +2074,7 @@ class Config(object):
 
     CONFIG_FILE = 'download.cfg'
 
-    LOGIN_URL = 'https://www.coursera.org/maestro/auth/api/user/login'
+    LOGIN_URL = 'https://www.coursera.org/maestro/api/user/login'
     REDIRECT_URL = 'https://class.coursera.org/{0}/auth/auth_redirector?type=login&subtype=normal&email=&visiting=%2F{0}%2Flecture%2Findex&minimal=true'
 
     def __init__(self):
