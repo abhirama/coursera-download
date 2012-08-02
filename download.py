@@ -2354,28 +2354,33 @@ def main():
 
         classNames = weekClasses['classNames']
 
-        for className in classNames:
+        for i,className in enumerate(classNames,start=1):
+            
             if className not in weekClasses:
                 continue
 
             classResources = weekClasses[className]
 
-            if not os.path.exists(className):
-                os.makedirs(className)
-            os.chdir(className)
+            # the directory name is the class name but prefix it with a counter
+            # so the chronological order of classes is not lost
+            dirName = str(i).zfill(2) + " - " + className
+
+            if not os.path.exists(dirName):
+                os.makedirs(dirName)
+            os.chdir(dirName)
 
             for classResource in classResources:
                 if not isValidURL(classResource):
                     absoluteURLGen = AbsoluteURLGen(Config.course)
                     classResource = absoluteURLGen.get_absolute(classResource)
                     print classResource, ' - is not a valid url'
-                    
+
                     if not isValidURL(classResource):
                         print classResource, ' - is not a valid url'
                         continue
-                    
+
                 print 'Downloading resource - ', classResource
-                downloader.download(classResource, className)
+                downloader.download(classResource, dirName)
 
             os.chdir('..')
     
