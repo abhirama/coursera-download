@@ -2354,7 +2354,7 @@ def main():
 
         classNames = weekClasses['classNames']
 
-        for i,className in enumerate(classNames,start=1):
+        for i, className in enumerate(classNames, start=1):
             
             if className not in weekClasses:
                 continue
